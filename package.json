@@ -38,7 +38,7 @@
     "mongoose": "3.6.x",
     "mongoose-validator": "0.2.x",
     "cluestr": "0.x.x",
-    "dbox": "0.6.x",
+    "googleapis": "0.4.x",
     "request": "2.26.x",
     "sspawn": "0.1.1"
   },
