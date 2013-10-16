@@ -1,0 +1,16 @@
+#!/bin/env node
+
+'use strict';
+/**
+ * @file Launch the server
+ *
+ */
+
+
+// Load configuration
+var configuration = require("../config/configuration.js");
+var server = require('../app.js');
+
+// Start the server
+var spawner = require('sspawn')(server, {port: configuration.port});
+spawner.start();
