@@ -1,5 +1,5 @@
 {
-  "name": "cluestr-provider-dropbox",
+  "name": "cluestr-provider-google-drive",
   "version": "0.1.0",
   "author": "Matthieu Bacconnier <matthieu.bacconnier@papiel.fr>",
   "contributors": [
@@ -21,15 +21,16 @@
     "test": "NODE_ENV=test mocha -R spec -t 1000000",
     "lint": "jshint lib/ test/ config/ bin/"
   },
-  "main": "./lib/provider-dropbox",
+  "main": "./lib/provider-google-drive",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Papiel/provider-dropbox"
+    "url": "https://github.com/Papiel/provider-google-drive"
   },
   "keywords": [
     "cluestr",
     "provider",
-    "dropbox"
+    "google",
+    "drive"
   ],
   "dependencies": {
     "async": "0.2.x",
