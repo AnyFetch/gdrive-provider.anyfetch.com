@@ -16,7 +16,7 @@ if(node_env === "production") {
   default_port = 80;
 }
 
-if(!process.env.DROPBOX_CONNECT_URL) {
+if(!process.env.GDRIVE_CONNECT_URL) {
   console.log("Connect url not specified, oAuth will not work.");
 }
 
@@ -24,22 +24,22 @@ if(!process.env.DROPBOX_CONNECT_URL) {
 module.exports = {
   env: node_env,
   port: process.env.PORT || default_port,
-  mongo_url: process.env.MONGO_URL || ("mongodb://localhost/provider-dropbox-" + node_env),
+  mongo_url: process.env.MONGO_URL || ("mongodb://localhost/provider-google-drive-" + node_env),
 
-  dropbox_id: process.env.DROPBOX_ID,
-  dropbox_secret: process.env.DROPBOX_SECRET,
-  dropbox_callback: process.env.DROPBOX_CALLBACK_URL,
-  dropbox_connect: process.env.DROPBOX_CONNECT_URL,
+  gdrive_id: process.env.GDRIVE_ID,
+  gdrive_secret: process.env.GDRIVE_SECRET,
+  gdrive_callback: process.env.GDRIVE_CALLBACK_URL,
+  gdrive_connect: process.env.GDRIVE_CONNECT_URL,
 
-  cluestr_id: process.env.DROPBOX_CLUESTR_ID,
-  cluestr_secret: process.env.DROPBOX_CLUESTR_SECRET,
+  cluestr_id: process.env.GDRIVE_CLUESTR_ID,
+  cluestr_secret: process.env.GDRIVE_CLUESTR_SECRET,
 
-  max_concurrency: process.env.DROPBOX_MAX_CONCURRENCY || 5,
+  max_concurrency: process.env.GDRIVE_MAX_CONCURRENCY || 5,
 
   test_tokens: {
-    oauth_token_secret: process.env.DROPBOX_TEST_OAUTH_TOKEN_SECRET,
-    oauth_token: process.env.DROPBOX_TEST_OAUTH_TOKEN,
+    oauth_token_secret: process.env.GDRIVE_TEST_OAUTH_TOKEN_SECRET,
+    oauth_token: process.env.GDRIVE_TEST_OAUTH_TOKEN,
     uid: process.env.DROPBOX_TEST_UID,
   },
-  test_cursor: process.env.DROPBOX_TEST_CURSOR
+  test_cursor: process.env.GDRIVE_TEST_CURSOR
 };
