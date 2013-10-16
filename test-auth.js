@@ -1,6 +1,6 @@
 'use strict';
 
-var dbox  = require("dbox");
+var gapis  = require("googleapis");
 var readline = require('readline');
 
 
@@ -11,23 +11,20 @@ var rl = readline.createInterface({
   output: process.stdout
 });
 
-var app = dbox.app({
-  "app_key": config.dropbox_id,
-  "app_secret": config.dropbox_secret,
-});
+var auth = new gapis.OAuth2Client(config.gdrive_id, config.gdrive_secret, config.gdrive_connect);
 
-app.requesttoken(function(status, requestToken){
-  if(status !== 200) {
-    throw requestToken;
-  }
-
-  console.log('Visit the url: ', requestToken.authorize_url);
-  rl.question('Press enter after grant.', function() {
-
-    app.accesstoken(requestToken, function(status, accessToken){
-      console.log("Set this value in your DROPBOX_TEST_* environment: ", accessToken.oauth_token);
-      console.log(accessToken);
+gapis.discover('drive', 'v2').execute(function(err, client) {
+  var url = auth.generateAuthUrl({ scope: "https://www.googleapis.com/auth/drive" });
+  var getAccessToken = function(code) {
+    auth.getToken(code, function(err, token) {
+      if (err) {
+        console.log("Error when trying to retrieve access token", err);
+        return;
+      }
+      console.log("Your access token is: " + token.access_token);
       process.exit();
     });
-  });
+  };
+  console.log('Visit the url: ', url);
+  rl.question('Enter the code here:', getAccessToken);
 });
