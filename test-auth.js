@@ -11,9 +11,14 @@ var rl = readline.createInterface({
   output: process.stdout
 });
 
-var auth = new gapis.OAuth2Client(config.gdrive_id, config.gdrive_secret, config.gdrive_connect);
+console.log(config);
+var auth = new gapis.OAuth2Client(config.google_drive_id, config.google_drive_secret, config.google_drive_connect);
 
-gapis.discover('drive', 'v2').execute(function(err, client) {
+gapis.discover('drive', 'v2').execute(function(err) {
+  if(err) {
+    throw err;
+  }
+
   var url = auth.generateAuthUrl({ scope: "https://www.googleapis.com/auth/drive" });
   var getAccessToken = function(code) {
     auth.getToken(code, function(err, token) {
