@@ -16,7 +16,7 @@ if(node_env === "production") {
   default_port = 80;
 }
 
-if(!process.env.GDRIVE_CONNECT_URL) {
+if(!process.env.GOOGLE_DRIVE_CONNECT_URL) {
   console.log("Connect url not specified, oAuth will not work.");
 }
 
@@ -26,20 +26,15 @@ module.exports = {
   port: process.env.PORT || default_port,
   mongo_url: process.env.MONGO_URL || ("mongodb://localhost/provider-google-drive-" + node_env),
 
-  gdrive_id: process.env.GDRIVE_ID,
-  gdrive_secret: process.env.GDRIVE_SECRET,
-  gdrive_callback: process.env.GDRIVE_CALLBACK_URL,
-  gdrive_connect: process.env.GDRIVE_CONNECT_URL,
+  google_drive_id: process.env.GOOGLE_DRIVE_ID,
+  google_drive_secret: process.env.GOOGLE_DRIVE_SECRET,
+  google_drive_callback: process.env.GOOGLE_DRIVE_CALLBACK_URL,
+  google_drive_connect: process.env.GOOGLE_DRIVE_CONNECT_URL,
 
-  cluestr_id: process.env.GDRIVE_CLUESTR_ID,
-  cluestr_secret: process.env.GDRIVE_CLUESTR_SECRET,
+  cluestr_id: process.env.GOOGLE_DRIVE_CLUESTR_ID,
+  cluestr_secret: process.env.GOOGLE_DRIVE_CLUESTR_SECRET,
 
-  max_concurrency: process.env.GDRIVE_MAX_CONCURRENCY || 5,
+  max_concurrency: process.env.GOOGLE_DRIVE_MAX_CONCURRENCY || 5,
 
-  test_tokens: {
-    oauth_token_secret: process.env.GDRIVE_TEST_OAUTH_TOKEN_SECRET,
-    oauth_token: process.env.GDRIVE_TEST_OAUTH_TOKEN,
-    uid: process.env.DROPBOX_TEST_UID,
-  },
-  test_cursor: process.env.GDRIVE_TEST_CURSOR
+  test_refresh_token: process.env.GOOGLE_DRIVE_TEST_REFRESH_TOKEN
 };
