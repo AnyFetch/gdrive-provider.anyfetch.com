@@ -23,10 +23,10 @@ gapis.discover('drive', 'v2').execute(function(err) {
   var getAccessToken = function(code) {
     auth.getToken(code, function(err, token) {
       if (err) {
-        console.log("Error when trying to retrieve access token", err);
+        console.log("Error when trying to retrieve refresh token", err);
         return;
       }
-      console.log("Your access token is: " + token.access_token);
+      console.log("Your refresh token is: " + token.refresh_token);
       process.exit();
     });
   };
