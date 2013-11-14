@@ -12,7 +12,7 @@ var rl = readline.createInterface({
 });
 
 console.log(config);
-var auth = new gapis.OAuth2Client(config.google_drive_id, config.google_drive_secret, config.google_drive_connect);
+var auth = new gapis.OAuth2Client(config.google_drive_id, config.google_drive_secret, config.google_drive_callback);
 
 gapis.discover('drive', 'v2').execute(function(err) {
   if(err) {
