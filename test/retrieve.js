@@ -7,8 +7,11 @@ var retrieve = require('../lib/provider-google-drive/helpers/retrieve.js');
 describe("Retrieve files", function () {
   it("should list files when no id passed and return the id of the last document", function(done) {
     retrieve(config.test_refresh_token, null, config, function(err, files, lastId) {
+      if(err) {
+        done(err);
+      }
       files.should.have.lengthOf(4);
-      done(err);
+      done();
     });
   });
 });
