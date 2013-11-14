@@ -20,7 +20,7 @@ gapis.discover('drive', 'v2').execute(function(err) {
   }
 
   var url = auth.generateAuthUrl({
-    scope: "https://www.googleapis.com/auth/drive",
+    scope: "https://www.googleapis.com/auth/drive.readonly",
     approval_prompt: "force",
     access_type: "offline"
   });
