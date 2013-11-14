@@ -8,7 +8,7 @@ describe("Retrieve files", function () {
   it("should list files when no id passed and return the id of the last document", function(done) {
     retrieve(config.test_refresh_token, null, config, function(err, files, lastId) {
       if(err) {
-        done(err);
+        throw err;
       }
       files.should.have.lengthOf(4);
       should.exist(files[0]);
@@ -22,7 +22,7 @@ describe("Retrieve files", function () {
   it("should list files from a given id", function(done) {
     retrieve(config.test_refresh_token, "44", config, function(err, files, lastId) {
       if(err) {
-        done(err);
+        throw err;
       }
       files.length.should.equal(3);
       done();
