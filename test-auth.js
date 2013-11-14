@@ -19,14 +19,18 @@ gapis.discover('drive', 'v2').execute(function(err) {
     throw err;
   }
 
-  var url = auth.generateAuthUrl({ scope: "https://www.googleapis.com/auth/drive" });
+  var url = auth.generateAuthUrl({
+    scope: "https://www.googleapis.com/auth/drive",
+    approval_prompt: "force",
+    access_type: "offline"
+  });
   var getAccessToken = function(code) {
     auth.getToken(code, function(err, token) {
       if (err) {
         console.log("Error when trying to retrieve refresh token", err);
         return;
       }
-      console.log("Your refresh token is: " + token.refresh_token);
+      console.log("Your tokens are: " + JSON.stringify(token, null, ' '));
       process.exit();
     });
   };

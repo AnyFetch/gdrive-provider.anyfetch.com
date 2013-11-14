@@ -1,8 +1,18 @@
-// 'use strict';
+'use strict';
 
-// var should = require('should');
-// var config = require('../config/configuration.js');
-// var retrieve = require('../lib/provider-google-contact/helpers/retrieve.js');
+var should = require('should');
+var config = require('../config/configuration.js');
+var retrieve = require('../lib/provider-google-drive/helpers/retrieve.js');
+
+describe("Retrieve files", function () {
+  it("should list files when no id passed and return the id of the last document", function(done) {
+    retrieve(config.test_refresh_token, null, config, function(err, files, lastId) {
+      console.log('blop');
+      files.should.have.lengthOf(1);
+      done(err);
+    });
+  });
+});
 
 // describe("Retrieve code", function () {
 //   it("should list contacts", function (done) {
