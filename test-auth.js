@@ -11,17 +11,26 @@ var rl = readline.createInterface({
   output: process.stdout
 });
 
-var auth = new gapis.OAuth2Client(config.gdrive_id, config.gdrive_secret, config.gdrive_connect);
+console.log(config);
+var auth = new gapis.OAuth2Client(config.google_drive_id, config.google_drive_secret, config.google_drive_connect);
 
-gapis.discover('drive', 'v2').execute(function(err, client) {
-  var url = auth.generateAuthUrl({ scope: "https://www.googleapis.com/auth/drive" });
+gapis.discover('drive', 'v2').execute(function(err) {
+  if(err) {
+    throw err;
+  }
+
+  var url = auth.generateAuthUrl({
+    scope: "https://www.googleapis.com/auth/drive.readonly",
+    approval_prompt: "force",
+    access_type: "offline"
+  });
   var getAccessToken = function(code) {
     auth.getToken(code, function(err, token) {
       if (err) {
-        console.log("Error when trying to retrieve access token", err);
+        console.log("Error when trying to retrieve refresh token", err);
         return;
       }
-      console.log("Your access token is: " + token.access_token);
+      console.log("Your tokens are: " + JSON.stringify(token, null, ' '));
       process.exit();
     });
   };

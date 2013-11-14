@@ -4,3 +4,13 @@ node_js:
 - '0.10'
 before_script: npm install --dev
 script: npm test
+env:
+  global:
+  - GOOGLE_DRIVE_CONNECT_URL="http://localhost:8000/init/connect"
+  - GOOGLE_DRIVE_CALLBACK_URL="http://localhost:8000/init/callback"
+  - GOOGLE_DRIVE_CLUESTR_ID="not-used"
+  - GOOGLE_DRIVE_CLUESTR_SECRET="not-used"
+  - secure: nSJvyexFhKe4KwWnGgKBTa4cdTbz1SVz1LmYiO3arLjLEcPKxrke4220ZHmKK+kX4sXOVNv48uiAzxCeL1qXuKYzTn59+XG1QpHY55zUDEMBJRrdj1f8ev/dFmaw+NMWQdAuHLjLuiTP3DErLPdXSHrWzki/VWWdWKKSvqyekjw=
+  - secure: TnlZi3bOk36f1SredYPMLsQzkCmE33tRHVeO1DnVRgdvoWxqsHvY2lMo+6FcuUKpt1cd0nnRm7z0on+X+ErTXogSaUwNvjEqxSmNyErVG5JIsZwVsPy496MncwzLx0txY8tGX7wDubG9rLPC0re8+UTE0kRxq2FaXepQDsEQUNo=
+  - secure: Ix6t+HuEljPNzFcwEXY9tkX+hAtt2Mu621+o71zikPB/PMRut/fpCaK88b1TaD27fj6YeGIJnubgL5nrk3Doh8pfOU1GaoIbrNJNqW41HVkHpt8qLUFRfIYZz1h5S/bn7TfVQBjTlbsrC+acuQsTjFGZ914x1hJnK9svMN/O0A8=
+  - secure: dOVeIUb9TiPDkGLk9CeQ9RHy/EgS+kXCFO1VRt4bdJd4CdP4zq9m8qj5yYC9v7xvj5KBGKpn2JgI3PXOBXIlmP3YXuC+HEiCrftxMujTui1wyjmMFt+7IO7sGEXqua1AJKhOzLGtMe4c14ZoG3gkbkdUfFJTMxOuUYbvVvbfB8c=
