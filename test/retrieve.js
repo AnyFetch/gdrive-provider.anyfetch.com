@@ -11,37 +11,21 @@ describe("Retrieve files", function () {
         done(err);
       }
       files.should.have.lengthOf(4);
+      should.exist(files[0]);
+      lastId.should.equal("49");
+      files[0].should.have.property('id', '1wnEFyXM4bSaSqMORS0NycszCse9dJvhYoiZnITRMeCE');
+      files[0].should.have.property('title', 'Test');
+      files[0].should.have.property('mimeType', 'application/vnd.google-apps.document');
+      done();
+    });
+  });
+  it("should list files from a given id", function(done) {
+    retrieve(config.test_refresh_token, "44", config, function(err, files, lastId) {
+      if(err) {
+        done(err);
+      }
+      files.length.should.equal(3);
       done();
     });
   });
 });
-
-// describe("Retrieve code", function () {
-//   it("should list contacts", function (done) {
-//     retrieve(config.test_refresh_token, new Date(1970, 0, 1), function(err, contacts) {
-//       if(err) {
-//         throw err;
-//       }
-
-//       should.exist(contacts[0]);
-//       contacts[0].should.have.property('id', 'http://www.google.com/m8/feeds/contacts/test.cluestr%40gmail.com/base/587c929509de3a0a');
-//       contacts[0].should.have.property('name', 'Matthieu Bacconnier');
-//       contacts[0].should.have.property('given_name', 'Matthieu');
-//       contacts[0].should.have.property('family_name', 'Bacconnier');
-//       contacts[0].should.have.property('address');
-
-//       done();
-//     });
-//   });
-
-//   it("should list contacts modified after specified date", function (done) {
-//     retrieve(config.test_refresh_token, new Date(2020, 7, 22), function(err, contacts) {
-//       if(err) {
-//         throw err;
-//       }
-
-//       contacts.should.have.lengthOf(0);
-//       done();
-//     });
-//   });
-// });
