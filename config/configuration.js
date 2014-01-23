@@ -31,8 +31,8 @@ module.exports = {
   google_drive_callback: process.env.GOOGLE_DRIVE_CALLBACK_URL,
   google_drive_connect: process.env.GOOGLE_DRIVE_CONNECT_URL,
 
-  cluestr_id: process.env.GOOGLE_DRIVE_CLUESTR_ID,
-  cluestr_secret: process.env.GOOGLE_DRIVE_CLUESTR_SECRET,
+  anyfetch_id: process.env.GOOGLE_DRIVE_ANYFETCH_ID,
+  anyfetch_secret: process.env.GOOGLE_DRIVE_ANYFETCH_SECRET,
 
   max_concurrency: process.env.GOOGLE_DRIVE_MAX_CONCURRENCY || 5,
 

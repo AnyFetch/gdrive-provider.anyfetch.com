@@ -1,7 +1,7 @@
-# Google Drive Cluestr Provider
-> Visit http://cluestr.com for details about Cluestr.
+# Google Drive AnyFetch Provider
+> Visit http://anyfetch.com for details about AnyFetch.
 
-Cluestr provider for files stored in Google Drive
+AnyFetch provider for files stored in Google Drive
 
 # How to install?
 Vagrant up everything (`vagrant up`, `vagrant ssh`).
@@ -16,9 +16,9 @@ export GDRIVE_SECRET="gdrive-secret"
 # Callback after gdrive consent, most probably https://your-host/init/callback
 export GDRIVE_CALLBACK_URL="callback-after-gdrive-consent"
 
-# Cluestr app id and secret
-export GDRIVE_CLUESTR_ID="cluestr-app-id"
-export GDRIVE_CLUESTR_SECRET="cluestr-app-secret"
+# AnyFetch app id and secret
+export GDRIVE_ANYFETCH_ID="anyfetch-app-id"
+export GDRIVE_ANYFETCH_SECRET="anyfetch-app-secret"
 
 # Number of files to upload at the same time
 export GDRIVE_MAX_CONCURRENCY="5"
@@ -32,20 +32,20 @@ export GDRIVE_TEST_CURSOR=""
 ```
 
 # How does it works?
-Cluestr Core will call `/init/connect` with cluestr authorization code. We will generate a request_token and transparently redirect the user to gdrive consentment page.
+AnyFetch Core will call `/init/connect` with anyfetch authorization code. We will generate a request_token and transparently redirect the user to gdrive consentment page.
 gdrive will then call us back on `/init/callback`. We'll check our request_token has been granted approval, and store this.
 
-We can now sync datas between gdrive and Cluestr.
+We can now sync datas between gdrive and AnyFetch.
 
 This is where the `upload` helper comes into play.
-Every time `upload` is called, the function will retrieve, for all the accounts, the files modified since the last run, and upload the datas to Cluestr.
-Deleted files will also be deleted from Cluestr.
+Every time `upload` is called, the function will retrieve, for all the accounts, the files modified since the last run, and upload the datas to AnyFetch.
+Deleted files will also be deleted from AnyFetch.
 
 The computation of the delta (between last run and now) or by push is done by gdrive, and can be really long in some rare cases (for most accounts it is a few seconds, on mine it lasts for 25 minutes -- heavy gdrive users beware! And that says nothing about the time to retrieve the datas after.)
 
 # How to test?
 Unfortunately, testing this module is really hard.
-This project is basically a simple bridge between gdrive and Cluestr, so testing requires tiptoeing with the network and gdrive / Cluestr servers.
+This project is basically a simple bridge between gdrive and AnyFetch, so testing requires tiptoeing with the network and gdrive / AnyFetch servers.
 
 Before running the test suite, you'll need to do:
 
