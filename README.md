@@ -32,7 +32,7 @@ export GDRIVE_TEST_CURSOR=""
 ```
 
 # How does it works?
-AnyFetch Core will call `/init/connect` with anyfetch authorization code. We will generate a request_token and transparently redirect the user to gdrive consentment page.
+Fetch API will call `/init/connect` with anyfetch authorization code. We will generate a request_token and transparently redirect the user to gdrive consentment page.
 gdrive will then call us back on `/init/callback`. We'll check our request_token has been granted approval, and store this.
 
 We can now sync datas between gdrive and AnyFetch.
