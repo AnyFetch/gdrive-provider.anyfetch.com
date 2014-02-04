@@ -1,11 +1,11 @@
 {
-  "name": "cluestr-provider-google-drive",
+  "name": "anyfetch-google-drive-provider",
   "version": "0.1.0",
-  "author": "Matthieu Bacconnier <matthieu.bacconnier@papiel.fr>",
+  "author": "Robin Ricard <ricard.robin@gmail.com>",
   "contributors": [
     {
-      "name": "Robin Ricard",
-      "email": "ricard.robin@gmail.com"
+      "name": "Matthieu Bacconnier",
+      "email": "matthieu.bacconnier@papiel.fr"
     },
     {
       "name": "Pierre-Marie Dartus",
@@ -24,10 +24,10 @@
   "main": "./lib/provider-google-drive",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Papiel/provider-google-drive"
+    "url": "https://github.com/Papiel/google-drive.provider.anyfetch.com"
   },
   "keywords": [
-    "cluestr",
+    "anyfetch",
     "provider",
     "google",
     "drive"
@@ -38,7 +38,7 @@
     "googleapis": "0.4.x",
     "request": "2.30.x",
     "sspawn": "0.1.1",
-    "cluestr-provider": "0.x.x",
+    "anyfetch-provider": "0.x.x",
     "newrelic": "1.x.x"
   },
   "devDependencies": {
@@ -47,7 +47,7 @@
     "supertest": "0.8.x",
     "jshint": "2.3.x"
   },
-  "licence": "Copyright Papiel",
+  "licence": "MIT",
   "engines": {
     "node": ">=0.10"
   }
