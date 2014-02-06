@@ -9,7 +9,7 @@ var serverConfig = require('../lib/provider-google-drive')(config);
 
 describe("File Upload", function () {
   // Create a fake HTTP server
-  process.env.ANYFETCH_SERVER = 'http://localhost:1337';
+  process.env.ANYFETCH_API_URL = 'http://localhost:1337';
 
   // Create a fake HTTP server
   var frontServer = AnyFetchProvider.debug.createTestApiServer();
@@ -25,17 +25,27 @@ describe("File Upload", function () {
   });
 
   it("should upload datas to AnyFetch", function (done) {
+    var count = 0;
     var originalQueueWorker = serverConfig.queueWorker;
-    serverConfig.queueWorker = function(task, anyfetchClient, dropboxTokens, cb) {
-      task.should.have.property('id');
-
-      originalQueueWorker(task, anyfetchClient, dropboxTokens, cb);
+    serverConfig.queueWorker = function(task, anyfetchClient, gdriveTokens, cb) {
+      try {
+        task.should.have.property('id');
+      } catch(e) {
+        return done(e);
+      }
+      originalQueueWorker(task, anyfetchClient, gdriveTokens, function (err) {
+        if(err) {
+          console.log(err);
+          return cb(err);
+        }
+        count += 1;
+        if(count === 4) {
+          done();
+        }
+        cb();
+      });
     };
     var server = AnyFetchProvider.createServer(serverConfig);
-
-    server.queue.drain = function() {
-      done();
-    };
 
     request(server)
       .post('/update')
