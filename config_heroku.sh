@@ -6,7 +6,7 @@ heroku config:set MONGO_URL="$MONGO_URL"
 # OAuth
 source ./keys.sh
 
-URL="https://anyfetch-provider-gdrive.herokuapp.com/init/callback"
+URL="https://anyfetch-provider-gdrive.herokuapp.com"
 
 heroku config:set GOOGLE_DRIVE_ID="$GOOGLE_DRIVE_ID"
 heroku config:set GOOGLE_DRIVE_SECRET="$GOOGLE_DRIVE_SECRET"
