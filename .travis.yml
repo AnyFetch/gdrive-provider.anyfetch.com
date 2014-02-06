@@ -16,6 +16,6 @@ env:
   - secure: EP3JNDuxwB/GHeOXqJbmighGV/YuQ6hE5EXBLDAsnbNP930gkdbDfjWRzxZHsCThalIKw6q09DDbyS7b+nF6DBG+nM+GjbSbVRj4X9kdLtXnVcY3PKMg/Brg59upZGwRtbatwB9YdAA5Cee7JAu7mnNLSt6T+FMW3yH1RQdsEps=
 deploy:
   provider: heroku
-  app: provider-google-drive
+  app: anyfetch-provider-gdrive
   api_key:
     secure: pwas9d3E6tyUStTJ/79v1Ywo5FmBeV7mxEK9GBKI9IQjheo5sAPGlqwAsyvOM+bb1v+0G3WrY7QI+IIxEoLYTrK4uUtbYzS6raiKJRmB7arpr+7qVi2a6Vg2u5d0/79u0ZanlI0nYAF1Sptx1Z8e0nmbBeoDrMo/qUKWo3cT7es=
