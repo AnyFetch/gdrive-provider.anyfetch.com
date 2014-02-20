@@ -12,7 +12,7 @@ describe("Retrieve files", function () {
       }
       files.should.have.lengthOf(4);
       should.exist(files[0]);
-      lastId.should.equal("49");
+      lastId.should.equal("82");
       files[0].should.have.property('id', '1wnEFyXM4bSaSqMORS0NycszCse9dJvhYoiZnITRMeCE');
       files[0].should.have.property('title', 'Test');
       files[0].should.have.property('mimeType', 'application/vnd.google-apps.document');
@@ -24,7 +24,7 @@ describe("Retrieve files", function () {
       if(err) {
         throw err;
       }
-      files.length.should.equal(3);
+      files.length.should.equal(4);
       done();
     });
   });
