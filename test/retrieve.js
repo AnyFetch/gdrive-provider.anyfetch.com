@@ -12,7 +12,7 @@ describe("Retrieve files", function () {
       }
       files.should.have.lengthOf(4);
       should.exist(files[0]);
-      lastId.should.be.ok();
+      lastId.should.be.ok;
       files[0].should.have.property('id', '1wnEFyXM4bSaSqMORS0NycszCse9dJvhYoiZnITRMeCE');
       files[0].should.have.property('title', 'Test');
       files[0].should.have.property('mimeType', 'application/vnd.google-apps.document');
