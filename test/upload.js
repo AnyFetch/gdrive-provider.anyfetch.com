@@ -8,8 +8,6 @@ var config = require('../config/configuration.js');
 var serverConfig = require('../lib/provider-google-drive')(config);
 
 describe("File Upload", function () {
-  // Create a fake HTTP server
-  process.env.ANYFETCH_API_URL = 'http://localhost:1337';
 
   // Create a fake HTTP server
   var frontServer = AnyFetchProvider.debug.createTestApiServer();
@@ -50,7 +48,8 @@ describe("File Upload", function () {
     request(server)
       .post('/update')
       .send({
-        access_token: 'fake_gdrive_access_token'
+        access_token: 'fake_gdrive_access_token',
+        api_url: 'http://localhost:1337'
       })
       .expect(202)
       .end(function(err) {
