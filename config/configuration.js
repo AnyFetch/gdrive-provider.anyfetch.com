@@ -35,6 +35,7 @@ module.exports = {
   anyfetch_secret: process.env.GOOGLE_DRIVE_ANYFETCH_SECRET,
 
   max_concurrency: process.env.GOOGLE_DRIVE_MAX_CONCURRENCY || 5,
+  max_size: process.env.GOOGLE_DRIVE_MAX_SIZE || 50,
 
   test_refresh_token: process.env.GOOGLE_DRIVE_TEST_REFRESH_TOKEN
 };
