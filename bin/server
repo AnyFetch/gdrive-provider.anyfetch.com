@@ -1,10 +1,6 @@
 #!/bin/env node
-
 'use strict';
-/**
- * @file Launch the server
- *
- */
+
 // New Relic RPM
 if(process.env.NEW_RELIC_LICENSE_KEY) {
   require('newrelic');
@@ -15,5 +11,6 @@ var configuration = require("../config/configuration.js");
 var server = require('../app.js');
 
 // Start the server
-var spawner = require('sspawn')(server, {port: configuration.port});
-spawner.start();
+server.listen(config.port, function() {
+  console.log("server listening on port " + config.port);
+});
