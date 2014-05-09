@@ -17,10 +17,9 @@
   },
   "scripts": {
     "start": "node ./bin/server",
-    "upload": "node ./bin/upload",
     "test": "NODE_ENV=test mocha -R spec -t 1000000"
   },
-  "main": "./lib/provider-google-drive",
+  "main": "./lib/",
   "repository": {
     "type": "git",
     "url": "https://github.com/Papiel/google-drive.provider.anyfetch.com"
@@ -33,7 +32,6 @@
   ],
   "dependencies": {
     "async": "0.8.x",
-    "restify": "2.7.x",
     "googleapis": "0.7.x",
     "request": "2.34.x",
     "anyfetch-provider": ">=0.3.13",
