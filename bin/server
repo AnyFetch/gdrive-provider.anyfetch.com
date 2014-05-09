@@ -7,7 +7,7 @@ if(process.env.NEW_RELIC_LICENSE_KEY) {
 }
 
 // Load configuration
-var configuration = require("../config/configuration.js");
+var config = require("../config/configuration.js");
 var server = require('../app.js');
 
 // Start the server
