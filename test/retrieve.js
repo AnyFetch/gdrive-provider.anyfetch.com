@@ -10,6 +10,7 @@ describe("Retrieve files", function () {
       if(err) {
         throw err;
       }
+
       files.should.have.lengthOf(4);
       should.exist(files[0]);
       lastId.should.be.ok;
