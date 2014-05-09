@@ -3,7 +3,7 @@
 // Load configuration and initialize server
 var anyfetchProvider = require('anyfetch-provider');
 
-var providerGoogleDrive = require('./lib/provider-google-drive');
+var providerGoogleDrive = require('./lib/');
 var config = require('./config/configuration.js');
 
 var serverHandlers = providerGoogleDrive(config);

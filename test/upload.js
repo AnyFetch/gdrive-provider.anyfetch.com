@@ -5,7 +5,7 @@ var AnyFetchProvider = require('anyfetch-provider');
 require('should');
 
 var config = require('../config/configuration.js');
-var serverConfig = require('../lib/provider-google-drive')(config);
+var serverConfig = require('../lib/')(config);
 
 describe("File Upload", function () {
 

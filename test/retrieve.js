@@ -2,7 +2,7 @@
 
 var should = require('should');
 var config = require('../config/configuration.js');
-var retrieve = require('../lib/provider-google-drive/helpers/retrieve.js');
+var retrieve = require('../lib/helpers/retrieve.js');
 
 describe("Retrieve files", function () {
   it("should list files when no id passed and return the id of the last document", function(done) {
