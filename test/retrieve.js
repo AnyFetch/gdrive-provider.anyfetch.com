@@ -10,6 +10,7 @@ describe("Retrieve files", function () {
       if(err) {
         throw err;
       }
+
       files.should.have.lengthOf(4);
       should.exist(files[0]);
       lastId.should.be.ok;
@@ -19,6 +20,7 @@ describe("Retrieve files", function () {
       done();
     });
   });
+
   it("should list files from a given id", function(done) {
     retrieve(config.test_refresh_token, "44", config, function(err, files, lastId) {
       if(err) {

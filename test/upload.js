@@ -22,7 +22,7 @@ describe("File Upload", function () {
     }, done);
   });
 
-  it("should upload datas to AnyFetch", function (done) {
+  it("should upload datas to AnyFetch", function(done) {
     var count = 0;
     var originalQueueWorker = serverConfig.queueWorker;
     serverConfig.queueWorker = function(task, anyfetchClient, gdriveTokens, cb) {
@@ -31,7 +31,7 @@ describe("File Upload", function () {
       } catch(e) {
         return done(e);
       }
-      originalQueueWorker(task, anyfetchClient, gdriveTokens, function (err) {
+      originalQueueWorker(task, anyfetchClient, gdriveTokens, function(err) {
         if(err) {
           console.log(err);
           return cb(err);
