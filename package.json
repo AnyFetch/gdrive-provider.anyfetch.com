@@ -34,7 +34,7 @@
     "async": "0.8.x",
     "googleapis": "0.7.x",
     "request": "2.34.x",
-    "anyfetch-provider": ">=0.3.13",
+    "anyfetch-provider": ">=0.3.15",
     "newrelic": "1.x.x"
   },
   "devDependencies": {
