@@ -17,12 +17,12 @@ describe("File Upload", function () {
   before(function(done) {
     AnyFetchProvider.debug.createToken({
       anyfetchToken: 'fake_gdrive_access_token',
-      datas: config.test_refresh_token,
+      data: config.test_refresh_token,
       cursor: process.test_cursor
     }, done);
   });
 
-  it("should upload datas to AnyFetch", function(done) {
+  it("should upload data to AnyFetch", function(done) {
     var count = 0;
     var originalQueueWorker = serverConfig.queueWorker;
     serverConfig.queueWorker = function(task, anyfetchClient, gdriveTokens, cb) {

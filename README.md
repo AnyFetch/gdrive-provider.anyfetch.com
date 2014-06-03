@@ -35,13 +35,13 @@ export GDRIVE_TEST_CURSOR=""
 Fetch API will call `/init/connect` with anyfetch authorization code. We will generate a request_token and transparently redirect the user to gdrive consentment page.
 gdrive will then call us back on `/init/callback`. We'll check our request_token has been granted approval, and store this.
 
-We can now sync datas between gdrive and AnyFetch.
+We can now sync data between gdrive and AnyFetch.
 
 This is where the `upload` helper comes into play.
-Every time `upload` is called, the function will retrieve, for all the accounts, the files modified since the last run, and upload the datas to AnyFetch.
+Every time `upload` is called, the function will retrieve, for all the accounts, the files modified since the last run, and upload the data to AnyFetch.
 Deleted files will also be deleted from AnyFetch.
 
-The computation of the delta (between last run and now) or by push is done by gdrive, and can be really long in some rare cases (for most accounts it is a few seconds, on mine it lasts for 25 minutes -- heavy gdrive users beware! And that says nothing about the time to retrieve the datas after.)
+The computation of the delta (between last run and now) or by push is done by gdrive, and can be really long in some rare cases (for most accounts it is a few seconds, on mine it lasts for 25 minutes -- heavy gdrive users beware! And that says nothing about the time to retrieve the data after.)
 
 # How to test?
 Unfortunately, testing this module is really hard.
