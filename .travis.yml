@@ -13,8 +13,3 @@ env:
   - secure: SaYZO1CaqNSpznvm7830EaCQkEKcbfkVo51j0aXHo0FFq/necnepe5TzFRy5+GAzdheeTNeA28Yozvhq8WIDYycJryKE7Uo9BEtK2HGTcJwm8byLG7I1Z7QT+f3gA2KWmIAHHHI6aD2qK9t0q8DLAlC/EJkqTHiP3+iYoLu8MGc=
   - secure: HZm958PTgcTtwtL5T15lXBYjZydFcQDMgQdxssFRVPBeAgEDgSLpo61w3/32Pn5sizKa/E4Ztt6ho58mcC0RM1VgHoLMqYJUqy0mRN1WYSLyff/T7SklOPPiSDDKVE/Wst4wF5SDMvkk3p9CNGsq+74owetP/kGqU5DlFoAi+Ds=
   - secure: EP3JNDuxwB/GHeOXqJbmighGV/YuQ6hE5EXBLDAsnbNP930gkdbDfjWRzxZHsCThalIKw6q09DDbyS7b+nF6DBG+nM+GjbSbVRj4X9kdLtXnVcY3PKMg/Brg59upZGwRtbatwB9YdAA5Cee7JAu7mnNLSt6T+FMW3yH1RQdsEps=
-deploy:
-  provider: heroku
-  app: anyfetch-provider-gdrive
-  api_key:
-    secure: pwas9d3E6tyUStTJ/79v1Ywo5FmBeV7mxEK9GBKI9IQjheo5sAPGlqwAsyvOM+bb1v+0G3WrY7QI+IIxEoLYTrK4uUtbYzS6raiKJRmB7arpr+7qVi2a6Vg2u5d0/79u0ZanlI0nYAF1Sptx1Z8e0nmbBeoDrMo/qUKWo3cT7es=
