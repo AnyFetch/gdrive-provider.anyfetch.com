@@ -1,46 +1,41 @@
 "use_strict";
 
-var restify = require('restify');
+var express = require('express');
+var bodyParser = require('body-parser');
 var kue = require('kue');
 var redis = require('redis');
 var debug = require('debug');
-var config = require('./config/index.js')();
+var config = require('./config/index.js');
 var routes = require('./routes/routes.js');
 
 // Create the server
-var app = restify.createServer();
-debug('boot:restify')('app created');
+var app = express();
 
 // Bind global values
-debug('boot:config')('binding config', config);
-app.config = config;
-app.store  = redis.createClient(
-  config.redis.port,
-  config.redis.host,
+config(app);
+app.set('keyValueStore', redis.createClient(
+  app.get('redis.port'),
+  app.get('redis.host'),
   {
-    auth_pass: config.redis.auth
+    auth_pass: app.get('redis.auth')
   }
-);
+));
 debug('boot:redis')('key/value store ready');
-app.queue  = kue.createQueue({
-  prefix: config.redis.queuePrefix,
+app.set('queue', kue.createQueue({
+  prefix: app.get('redis.queuePrefix'),
   redis: {
-    port: config.redis.port,
-    host: config.redis.host,
-    auth: config.redis.auth
+    port: app.get('redis.port'),
+    host: app.get('redis.host'),
+    auth: app.get('redis.auth')
   }
-});
+}));
 debug('boot:redis')('job queue ready');
 
 // Apply middleware
-app.use(restify.acceptParser(app.acceptable));
-app.use(restify.queryParser());
-app.use(restify.bodyParser());
-debug('boot:restify')('middleware ready');
+app.use(bodyParser());
 
 // Apply routes
 routes(app);
-debug('boot:restify')('routes ready');
 
 // Return
 module.exports = app;

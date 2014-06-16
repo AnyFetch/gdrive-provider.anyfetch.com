@@ -2,8 +2,6 @@
 
 var mocks = require('../test/mock/index.js');
 
-module.exports = function(config) {
-  mocks.attach(config.gdrive.apiUrl, 'drive');
-
-  return config;
+module.exports = function(app) {
+  mocks.attach(app.get('gdrive.apiUrl'), 'drive');
 };

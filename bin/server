@@ -4,6 +4,6 @@
 
 var app = require('../app.js');
 var debug = require('debug');
-app.listen(app.config.port, function() {
-  debug('boot:restify')('app started on port', app.config.port);
+app.listen(app.get('port'), function() {
+  debug('boot:express')('app started on port', app.get('port'));
 });

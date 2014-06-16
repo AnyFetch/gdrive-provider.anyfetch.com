@@ -1,7 +1,5 @@
 "use_strict";
 
-module.exports = function(config) {
+module.exports = function(app) {
 
-
-  return config;
 };
