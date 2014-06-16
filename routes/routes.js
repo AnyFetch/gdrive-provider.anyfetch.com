@@ -1,4 +1,4 @@
-"use_strict";
+"use strict";
 
 var kue = require('kue');
 var autoload = require('auto-load');
