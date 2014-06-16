@@ -1,4 +1,4 @@
-"use_strict";
+"use strict";
 
 require('should');
 var request = require('supertest');
@@ -13,7 +13,7 @@ describe("GET /init/connect", function() {
         request(app)
           .get('/init/connect')
           .query({ code: "aCode" })
-          .expect(320)
+          .expect(302)
           .end(cb);
       },
       function assertRedirection(res, cb) {
@@ -22,11 +22,13 @@ describe("GET /init/connect", function() {
         components.should.have.property('protocol', accServ.protocol);
         components.should.have.property('host', accServ.host);
         components.should.have.property('pathname', '/o/oauth2/auth');
-        components.query.should.have.property('client_id', 'aClientId');
-        components.query.should.have.property('redirect_uri', app.get('gdrive.redirectUri') + '?code=aCode');
+        components.query.should.have.property('client_id', app.get('gdrive.apiId'));
+        components.query.should.have.property('redirect_uri', app.get('gdrive.redirectUri'));
         components.query.should.have.property('scope', 'https://www.googleapis.com/auth/drive.readonly');
         components.query.should.have.property('access_type', 'offline');
         components.query.should.have.property('approval_prompt', 'force');
+        components.query.should.have.property('state', 'aCode');
+        cb();
       }
     ], done);
   });

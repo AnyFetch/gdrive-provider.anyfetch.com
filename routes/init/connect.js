@@ -1,8 +1,13 @@
 "use strict";
 
-var gapis = require('googleapis');
-var OAuth2Client = gapis.OAuth2Client;
+module.exports.get = function(req, res, next) {
+  var authorizeUrl = req.app.get('googleOAuth').generateAuthUrl({
+    scope: "https://www.googleapis.com/auth/drive.readonly",
+    approval_prompt: "force",
+    access_type: "offline",
+    state: req.query.code
+  });
 
-module.exports = function(req, res, next) {
-  
+  res.redirect(authorizeUrl);
+  next();
 };
