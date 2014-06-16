@@ -10,25 +10,25 @@ You'll need to define some environment variables
 
 ```bash
 # Go to https://cloud.google.com/console#/flows/enableapi?apiid=drive to ask for app id and secret
-export GDRIVE_ID="gdrive-id"
-export GDRIVE_SECRET="gdrive-secret"
+export GOOGLE_DRIVE_ID="gdrive-id"
+export GOOGLE_DRIVE_SECRET="gdrive-secret"
 
 # Callback after gdrive consent, most probably https://your-host/init/callback
-export GDRIVE_CALLBACK_URL="callback-after-gdrive-consent"
+export GOOGLE_DRIVE_CALLBACK_URL="callback-after-gdrive-consent"
 
 # AnyFetch app id and secret
-export GDRIVE_ANYFETCH_ID="anyfetch-app-id"
-export GDRIVE_ANYFETCH_SECRET="anyfetch-app-secret"
+export GOOGLE_DRIVE_ANYFETCH_ID="anyfetch-app-id"
+export GOOGLE_DRIVE_ANYFETCH_SECRET="anyfetch-app-secret"
 
 # Number of files to upload at the same time
-export GDRIVE_MAX_CONCURRENCY="5"
+export GOOGLE_DRIVE_MAX_CONCURRENCY="5"
 
 # See below for details
-export GDRIVE_TEST_OAUTH_TOKEN_SECRET=""
-export GDRIVE_TEST_OAUTH_TOKEN=""
-export GDRIVE_TEST_UID=""
+export GOOGLE_DRIVE_TEST_OAUTH_TOKEN_SECRET=""
+export GOOGLE_DRIVE_TEST_OAUTH_TOKEN=""
+export GOOGLE_DRIVE_TEST_UID=""
 # Leave empty for first run
-export GDRIVE_TEST_CURSOR=""
+export GOOGLE_DRIVE_TEST_CURSOR=""
 ```
 
 # How does it works?
@@ -54,8 +54,8 @@ Before running the test suite, you'll need to do:
 ```
 
 Follow the link in your browser with your gdrive.
-After that, press enter and copy the result in your shell, then. Save the values as GDRIVE_TEST_* environment variable.
+After that, press enter and copy the result in your shell, then. Save the values as GOOGLE_DRIVE_TEST_* environment variable.
 
-> *Advanced users*: keep `GDRIVE_TEST_CURSOR` empty by default. If you want to make the tests run faster, `console.log` the return of a call to `helpers.retrieve.delta()` and paste the `cursor` value.
+> *Advanced users*: keep `GOOGLE_DRIVE_TEST_CURSOR` empty by default. If you want to make the tests run faster, `console.log` the return of a call to `helpers.retrieve.delta()` and paste the `cursor` value.
 
 Support: `support@papiel.fr`.
