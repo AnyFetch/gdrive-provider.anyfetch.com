@@ -30,7 +30,7 @@ module.exports = function(config) {
   config.anyfetch.redirectUri = process.env.ANYFETCH_REDIRECT_URI;
 
   // Environment-bound configuration
-  // config = require('./' + config.env + '.js')(config);
+  config = require('./' + config.env + '.js')(config);
 
   return config;
 };
