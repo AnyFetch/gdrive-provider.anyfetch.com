@@ -1,0 +1,49 @@
+{
+  "name": "anyfetch-google-drive-provider",
+  "version": "0.2.0",
+  "author": "Robin Ricard <ricard.robin@gmail.com>",
+  "contributors": [
+    {
+      "name": "Matthieu Bacconnier",
+      "email": "matthieu.bacconnier@papiel.fr"
+    },
+    {
+      "name": "Pierre-Marie Dartus",
+      "email": "dartus.pierremarie@gmail.com"
+    }
+  ],
+  "bin": {
+    "server": "./bin/server"
+  },
+  "scripts": {
+    "start": "node ./bin/server",
+    "test": "NODE_ENV=test mocha -R spec -t 10000"
+  },
+  "main": "./lib/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AnyFetch/google-drive.provider.anyfetch.com"
+  },
+  "keywords": [
+    "anyfetch",
+    "provider",
+    "google",
+    "drive"
+  ],
+  "dependencies": {
+    "async": "0.9.x",
+    "googleapis": "0.7.x",
+    "supertest": "0.13.x",
+    "anyfetch": "0.2.x",
+    "kue": "0.8.x",
+    "newrelic": "1.x.x"
+  },
+  "devDependencies": {
+    "mocha": "1.20.x",
+    "should": "4.0.x"
+  },
+  "licence": "MIT",
+  "engines": {
+    "node": ">=0.10"
+  }
+}
