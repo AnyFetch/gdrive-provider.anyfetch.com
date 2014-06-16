@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "node ./bin/server",
-    "test": "NODE_ENV=test mocha -R spec -t 10000"
+    "test": "NODE_ENV=test DEBUG=test:* mocha -R spec --recursive test"
   },
   "main": "./lib/",
   "repository": {
