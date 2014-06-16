@@ -17,7 +17,7 @@ module.exports = function(config) {
 
   // GDrive OAuth informations
   config.gdrive = {};
-  config.gdrive.apiUrl      = process.env.GDRIVE_API_URL || "https://www.googleapis.com/drive/v2";
+  config.gdrive.apiUrl      = process.env.GDRIVE_API_URL || "https://www.googleapis.com";
   config.gdrive.apiId       = process.env.GDRIVE_API_ID;
   config.gdrive.apiSecret   = process.env.GDRIVE_API_SECRET;
   config.gdrive.redirectUri = process.env.GDRIVE_REDIRECT_URI;
