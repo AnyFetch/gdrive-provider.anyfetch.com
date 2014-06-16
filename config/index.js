@@ -17,14 +17,16 @@ module.exports = function(config) {
 
   // GDrive OAuth informations
   config.gdrive = {};
-  config.gdrive.apiId = process.env.GDRIVE_API_ID;
-  config.gdrive.apiSecret = process.env.GDRIVE_API_SECRET;
+  config.gdrive.apiUrl      = process.env.GDRIVE_API_URL || "https://www.googleapis.com/drive/v2";
+  config.gdrive.apiId       = process.env.GDRIVE_API_ID;
+  config.gdrive.apiSecret   = process.env.GDRIVE_API_SECRET;
   config.gdrive.redirectUri = process.env.GDRIVE_REDIRECT_URI;
 
   // AnyFetch OAuth informations
   config.anyfetch = {};
-  config.anyfetch.apiId = process.env.ANYFETCH_API_ID;
-  config.anyfetch.apiSecret = process.env.ANYFETCH_API_SECRET;
+  config.anyfetch.apiUrl      = process.env.ANYFETCH_API_URL || "https://api.anyfetch.com";
+  config.anyfetch.apiId       = process.env.ANYFETCH_API_ID;
+  config.anyfetch.apiSecret   = process.env.ANYFETCH_API_SECRET;
   config.anyfetch.redirectUri = process.env.ANYFETCH_REDIRECT_URI;
 
   // Environment-bound configuration
