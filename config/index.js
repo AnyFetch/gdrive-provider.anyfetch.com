@@ -25,6 +25,7 @@ module.exports = function(config) {
   // AnyFetch OAuth informations
   config.anyfetch = {};
   config.anyfetch.apiUrl      = process.env.ANYFETCH_API_URL || "https://api.anyfetch.com";
+  consig.anyfetch.managerUrl  = process.env.ANYFETCH_MANAGER_URL || "https://manager.anyfetch.com";
   config.anyfetch.apiId       = process.env.ANYFETCH_API_ID;
   config.anyfetch.apiSecret   = process.env.ANYFETCH_API_SECRET;
   config.anyfetch.redirectUri = process.env.ANYFETCH_REDIRECT_URI;
