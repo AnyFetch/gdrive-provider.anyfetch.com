@@ -15,6 +15,8 @@ export GOOGLE_DRIVE_SECRET="gdrive-secret"
 
 # Callback after gdrive consent, most probably https://your-host/init/callback
 export GOOGLE_DRIVE_CALLBACK_URL="callback-after-gdrive-consent"
+# Callback from manager, most probably https://your-host/init/connect
+export GOOGLE_DRIVE_CONNECT_URL=""
 
 # AnyFetch app id and secret
 export GOOGLE_DRIVE_ANYFETCH_ID="anyfetch-app-id"
