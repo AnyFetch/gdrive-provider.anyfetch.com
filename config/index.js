@@ -1,4 +1,4 @@
-use_strict();
+"use_strict";
 
 module.exports = function(config) {
   if(!config) {
@@ -11,9 +11,10 @@ module.exports = function(config) {
 
   // Redis for job queues
   config.redis = {};
-  config.redis.port = process.env.REDIS_PORT || 6379;
-  config.redis.host = process.env.REDIS_HOST || '127.0.0.1';
-  config.redis.auth = process.env.REDIS_AUTH || null;
+  config.redis.queuePrefix = process.env.REDIS_QUEUE_PREFIX || 'gdrive-provider';
+  config.redis.port        = process.env.REDIS_PORT || 6379;
+  config.redis.host        = process.env.REDIS_HOST || '127.0.0.1';
+  config.redis.auth        = process.env.REDIS_AUTH || null;
 
   // GDrive OAuth informations
   config.gdrive = {};
@@ -25,7 +26,7 @@ module.exports = function(config) {
   // AnyFetch OAuth informations
   config.anyfetch = {};
   config.anyfetch.apiUrl      = process.env.ANYFETCH_API_URL || "https://api.anyfetch.com";
-  consig.anyfetch.managerUrl  = process.env.ANYFETCH_MANAGER_URL || "https://manager.anyfetch.com";
+  config.anyfetch.managerUrl  = process.env.ANYFETCH_MANAGER_URL || "https://manager.anyfetch.com";
   config.anyfetch.apiId       = process.env.ANYFETCH_API_ID;
   config.anyfetch.apiSecret   = process.env.ANYFETCH_API_SECRET;
   config.anyfetch.redirectUri = process.env.ANYFETCH_REDIRECT_URI;

@@ -1,4 +1,4 @@
-use_strict();
+"use_strict";
 
 var nock = require('nock');
 

@@ -38,7 +38,8 @@
     "anyfetch": "0.2.x",
     "kue": "0.8.x",
     "redis": "0.10.x",
-    "newrelic": "1.x.x"
+    "newrelic": "1.x.x",
+    "debug": "1.0.x"
   },
   "devDependencies": {
     "mocha": "1.20.x",
