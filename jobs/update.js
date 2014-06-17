@@ -1,7 +1,7 @@
 "use strict";
 
 var async = require('async');
-var googleapis = require('googleapis');
+var gApis = require('googleapis');
 var rarity = require('rarity');
 
 var PREFIX = "http://gdrive.provider.anyfetch.com";
@@ -12,7 +12,7 @@ module.exports = function(app) {
   return function(job, done) {
     async.waterfall([
       function discoverApi(cb) {
-        googleapis.discover('drive', 'v2').execute(cb);
+        gApis.discover('drive', 'v2').execute(cb);
       },
       function setup(client, cb) {
         var authClient = app.get('googleOAuth');
