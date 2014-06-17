@@ -8,7 +8,7 @@ var app = require('../../../app.js');
 
 describe("GET /init/callback", function() {
   beforeEach(function eraseHash(done) {
-    app.get('keyValueStore').del('tokens', done);
+    app.get('keyValueStore').del('googleTokens', done);
   });
 
   it('should associate successfully the anyfetch access token and the gdrive refresh token in the key/value store if google gives a positive response', function(done) {
@@ -33,7 +33,7 @@ describe("GET /init/callback", function() {
       },
       function queryRedis(cb) {
         app.get('keyValueStore')
-          .hget('tokens', 'anAccessToken', cb);
+          .hget('googleTokens', 'anAccessToken', cb);
       },
       function assertStoredValue(value, cb) {
         value.should.be.exactly('aGoogleRefreshToken');
@@ -57,7 +57,7 @@ describe("GET /init/callback", function() {
       },
       function queryRedis(res, cb) {
         app.get('keyValueStore')
-          .hget('tokens', 'anAccessToken', cb);
+          .hget('googleTokens', 'anAccessToken', cb);
       },
       function assertStoredValue(value, cb) {
         should(value).be.exactly(null);
