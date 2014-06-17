@@ -2,7 +2,6 @@
 
 var async = require('async');
 var gApis = require('googleapis');
-var rarity = require('rarity');
 
 var PREFIX = "http://gdrive.provider.anyfetch.com";
 

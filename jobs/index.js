@@ -11,8 +11,9 @@ module.exports = function(app) {
   var store = app.get('keyValueStore');
 
   for(var job in jobs) {
-    if(job !== "index") {
+    if(job !== "index") { // index is not a job, we don't want to register it
       debug('wait for job type', job);
+      // create new job processor
       queue.process(job, app.get('concurrency'), jobs[job](app));
     }
   }
