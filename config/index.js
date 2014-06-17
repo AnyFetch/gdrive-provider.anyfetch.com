@@ -3,9 +3,10 @@
 module.exports = function(app) {
 
   // Basic configuration
-  app.set('title', process.env.TITLE    || "Provider Google Drive");
-  app.set('env',   process.env.NODE_ENV || "development");
-  app.set('port',  process.env.PORT     || 3000);
+  app.set('title',       process.env.TITLE       || "Provider Google Drive");
+  app.set('env',         process.env.NODE_ENV    || "development");
+  app.set('port',        process.env.PORT        || 3000);
+  app.set('concurrency', process.env.CONCURRENCY || 5);
 
   // Redis for job queues
   app.set('redis.queuePrefix', process.env.REDIS_QUEUE_PREFIX || 'gdrive-provider');
