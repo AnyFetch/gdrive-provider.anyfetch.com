@@ -7,7 +7,7 @@ var update = require('../../jobs/update.js');
 var clean = require('../helpers/clean.js');
 var app = require('../../app.js');
 
-describe("JOB update", function() {
+describe("Job update", function() {
   before(function bindStore() {
     this.store = app.get('keyValueStore');
   });
