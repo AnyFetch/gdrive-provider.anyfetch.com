@@ -32,7 +32,7 @@ describe("GET /init/callback", function() {
           .hget('tokens', 'anAccessToken', cb);
       },
       function assertStoredValue(value, cb) {
-        value.should.be.exactly('aGoogleAccessToken');
+        value.should.be.exactly('aGoogleRefreshToken');
         cb();
       }
     ], done);
