@@ -7,7 +7,7 @@ module.exports.post = function(req, res, next) {
   var store = req.app.get('keyValueStore');
   var queue = req.app.get('queue');
   var jobDesc = {
-    title: "Token " + req.query.access_token,
+    title: "Update for " + req.query.access_token,
     anyfetchToken: req.query.access_token
   };
   async.waterfall([
