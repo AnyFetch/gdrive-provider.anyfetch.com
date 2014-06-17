@@ -5,23 +5,27 @@ module.exports = function(file) {
     if(file.exports["text/html"]) {
       return {
         type: "document",
-        url: file.exports["text/html"]
+        url: file.exports["text/html"],
+        extension: ".html"
       };
     } else if(file.exports["application/pdf"]) {
       return {
         type: "file",
-        url: file.exports["application/pdf"]
+        url: file.exports["application/pdf"],
+        extension: ".pdf"
       };
     } else if(file.exports["text/plain"]) {
       return {
         type: "document",
-        url: file.exports["text/plain"]
+        url: file.exports["text/plain"],
+        extension: ".txt"
       };
     }
   }
 
   return {
     type: "file",
-    url: file.downloadUrl
+    url: file.downloadUrl,
+    extension: ""
   };
 };

@@ -49,10 +49,11 @@ module.exports = function(app) {
           } else {
             var download = selectBestDownload(file);
             subjob.create(queue, 'upload', {
-              title: "Upload " + file.title,
+              title: file.title + download.extension,
               anyfetchToken: job.data.anyfetchToken,
               providerToken: job.data.providerToken,
               downloadUrl: download.url,
+              showAction: file.alternateLink,
               type: download.type,
               id: id
             });
