@@ -14,7 +14,7 @@ module.exports = function(app) {
   app.set('redis.auth',        process.env.REDIS_AUTH || null);
 
   // GDrive OAuth informations
-  app.set('gdrive.apiUrl',        process.env.GDRIVE_API_URL || "https://www.googleapis.com");
+  app.set('gdrive.apiUrl',        process.env.GDRIVE_API_URL        || "https://www.googleapis.com");
   app.set('gdrive.accountServer', process.env.GDRIVE_ACCOUNT_SERVER || "https://accounts.google.com");
   app.set('gdrive.apiId',         process.env.GDRIVE_API_ID);
   app.set('gdrive.apiSecret',     process.env.GDRIVE_API_SECRET);
