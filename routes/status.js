@@ -4,27 +4,27 @@ var async = require('async');
 
 module.exports.get = function(req, res, next) {
   var store = req.app.get('keyValueStore');
-  var status = {
+  var statusResponse = {
     anyfetch_token: req.query.access_token
   };
   async.waterfall([
     function getCursor(cb) {
-      store.hget('cursors', status.anyfetch_token, cb);
+      store.hget('cursors', req.query.access_token, cb);
     },
     function getStatus(cur, cb) {
-      status.cursor = cur;
+      statusResponse.cursor = cur;
 
-      store.hget('status', status.anyfetch_token, cb);
+      store.hget('status', req.query.access_token, cb);
     },
-    function getLastUpdate(stat, cb) {
-      status.is_updating = stat;
+    function getLastUpdate(status, cb) {
+      statusResponse.is_updating = status;
 
-      store.hget('lastUpdates', status.anyfetch_token, cb);
+      store.hget('lastUpdates', req.query.access_token, cb);
     },
     function sendResponse(last, cb) {
-      status.last_update = last;
+      statusResponse.last_update = last;
 
-      res.json(status);
+      res.json(statusResponse);
       cb();
     }
   ], next);
