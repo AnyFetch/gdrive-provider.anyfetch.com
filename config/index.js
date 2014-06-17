@@ -14,10 +14,11 @@ module.exports = function(app) {
   app.set('redis.auth',        process.env.REDIS_AUTH || null);
 
   // GDrive OAuth informations
-  app.set('gdrive.apiUrl',     process.env.GDRIVE_API_URL || "https://www.googleapis.com");
-  app.set('gdrive.apiId',       process.env.GDRIVE_API_ID);
-  app.set('gdrive.apiSecret',   process.env.GDRIVE_API_SECRET);
-  app.set('gdrive.redirectUri', process.env.GDRIVE_REDIRECT_URI);
+  app.set('gdrive.apiUrl',        process.env.GDRIVE_API_URL || "https://www.googleapis.com");
+  app.set('gdrive.accountServer', process.env.GDRIVE_ACCOUNT_SERVER || "https://accounts.google.com");
+  app.set('gdrive.apiId',         process.env.GDRIVE_API_ID);
+  app.set('gdrive.apiSecret',     process.env.GDRIVE_API_SECRET);
+  app.set('gdrive.redirectUri',   process.env.GDRIVE_REDIRECT_URI);
 
   // AnyFetch OAuth informations
   app.set('anyfetch.apiUrl',      process.env.ANYFETCH_API_URL || "https://api.anyfetch.com");

@@ -5,8 +5,10 @@ var bodyParser = require('body-parser');
 var kue = require('kue');
 var redis = require('redis');
 var debug = require('debug');
+var gApis = require('googleapis');
 var config = require('./config/index.js');
 var routes = require('./routes/routes.js');
+
 
 // Create the server
 var app = express();
@@ -30,6 +32,12 @@ app.set('queue', kue.createQueue({
   }
 }));
 debug('boot:redis')('job queue ready');
+app.set('googleOAuth', new gApis.OAuth2Client(
+  app.get('gdrive.apiId'),
+  app.get('gdrive.apiSecret'),
+  app.get('gdrive.redirectUri')
+));
+debug('boot:googleapis')('oauth client ready');
 
 // Apply middleware
 app.use(bodyParser());
