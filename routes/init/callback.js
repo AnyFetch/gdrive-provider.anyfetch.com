@@ -21,7 +21,7 @@ module.exports.get = function(req, res, next) {
     },
     function saveTokens(googleRefreshToken, anyfetchToken, cb) {
       req.app.get('keyValueStore')
-        .hset('googleTokens', anyfetchToken, googleRefreshToken, cb);
+        .hset('tokens', anyfetchToken, googleRefreshToken, cb);
     },
     function redirect(reply, cb) {
       res.redirect(req.app.get('anyfetch.managerUrl') + '/tokens');
