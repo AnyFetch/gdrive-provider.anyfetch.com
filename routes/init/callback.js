@@ -19,9 +19,9 @@ module.exports.get = function(req, res, next) {
         rarity.carry([tokens.refresh_token], cb)
       );
     },
-    function saveTokens(googleToken, afToken, cb) {
+    function saveTokens(googleRefreshToken, anyfetchToken, cb) {
       req.app.get('keyValueStore')
-        .hset('googleTokens', afToken, googleToken, cb);
+        .hset('googleTokens', anyfetchToken, googleRefreshToken, cb);
     },
     function redirect(reply, cb) {
       res.redirect(req.app.get('anyfetch.managerUrl') + '/tokens');
