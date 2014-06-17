@@ -1,6 +1,7 @@
 "use strict";
 
 var should = require('should');
+var async = require('async');
 
 require('../mock/index.js');
 var update = require('../../jobs/update.js');
@@ -22,11 +23,16 @@ describe("Job update", function() {
         anyfetchToken: 'anAccessToken'
       }
     };
-    update(app)(job, function assertJobResult(err, changeId) {
-      should(err).be.exactly(null);
-      changeId.should.be.exactly('change0');
-      done();
-    });
+
+    async.waterfall([
+      function startJob(cb) {
+        update(app)(job, cb);
+      },
+      function assertJobResult(changeId, cb) {
+        changeId.should.be.exactly('change0');
+        cb();
+      }
+    ], done);
   });
 
   it('should be able to resume from the right change id', function(done) {
@@ -38,10 +44,15 @@ describe("Job update", function() {
         anyfetchToken: 'anAccessToken'
       }
     };
-    update(app)(job, function assertJobResult(err, changeId) {
-      should(err).be.exactly(null);
-      changeId.should.be.exactly('change1');
-      done();
-    });
+
+    async.waterfall([
+      function startJob(cb) {
+        update(app)(job, cb);
+      },
+      function assertJobResult(changeId, cb) {
+        changeId.should.be.exactly('change1');
+        cb();
+      }
+    ], done);
   });
 });
