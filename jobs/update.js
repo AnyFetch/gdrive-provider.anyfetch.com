@@ -23,7 +23,7 @@ module.exports = function(app) {
         var options = {
           maxResults: 1000,
           startChangeId: job.data.cursor,
-          includeDeleted: (!! job.data.cursor)
+          includeDeleted: (!! job.data.cursor) // cast to bool
         };
         cb(null, [], options, client, authClient);
       },
