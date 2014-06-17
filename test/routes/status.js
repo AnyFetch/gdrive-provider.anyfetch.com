@@ -1,11 +1,10 @@
 "use strict";
 
-var should = require('should');
 var async = require('async');
 var request = require('supertest');
 var app = require('../../app.js');
 
-describe("DELETE /reset", function() {
+describe("GET /status", function() {
   beforeEach(function eraseAndPopulateHashs(done) {
     this.store = app.get('keyValueStore');
     async.series([

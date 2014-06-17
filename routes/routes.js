@@ -7,6 +7,7 @@ var routes = autoload(__dirname);
 module.exports = function(app) {
   app.delete('/reset', routes.reset.del);
   app.get('/status', routes.status.get);
+  app.post('/update', routes.update.post);
   app.get('/init/connect', routes.init.connect.get);
   app.get('/init/callback', routes.init.callback.get);
 
