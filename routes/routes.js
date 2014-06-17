@@ -6,6 +6,7 @@ var routes = autoload(__dirname);
 
 module.exports = function(app) {
   app.get('/init/connect', routes.init.connect.get);
+  app.get('/init/callback', routes.init.callback.get);
 
   // Setup kue webinterface
   kue.app.set('title', app.get('title'));
