@@ -39,9 +39,10 @@ module.exports = function(app) {
             if(err || !res) {
               return cb(err, res);
             }
-            changes.concat(res.items);
+
+            changes = changes.concat(res.items);
             if(res.nextPageToken) {
-              retrievePageOfChanges.apply(context, [changes, res.nextPageToken]);
+              retrievePageOfChanges.apply(context, [changes, res.nextPageToken, cb]);
             } else {
               cb(null, changes);
             }
@@ -72,7 +73,7 @@ module.exports = function(app) {
           }
         }
         cb(null, this.lastChangeId);
-      }
+      }.bind(context)
     ], done);
   };
 };
