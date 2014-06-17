@@ -1,8 +1,5 @@
 "use strict";
 
-"use strict";
-
-var kue = require('kue');
 var async = require('async');
 var request = require('supertest');
 var app = require('../../app.js');
@@ -35,7 +32,7 @@ describe("POST /update", function() {
       .end(done);
   });
 
-  it('should update if the provider token not set', function(done) {
+  it('should update if the provider token is set', function(done) {
     async.waterfall([
       function addProviderToken(cb) {
         this.store.hset('tokens', 'tok', 'toktok', cb);
@@ -50,7 +47,7 @@ describe("POST /update", function() {
     ], done);
   });
 
-  it('should not let update the provider if it is alredy updating', function(done) {
+  it('should not let update the provider if it is already updating', function(done) {
     async.waterfall([
       function addProviderToken(cb) {
         this.store.hset('tokens', 'tok', 'toktok', cb);
