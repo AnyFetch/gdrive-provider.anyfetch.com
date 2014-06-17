@@ -4,6 +4,7 @@ var async = require('async');
 var gApis = require('googleapis');
 var retrieveAllChanges = require('../helpers/retrieve-all-changes.js');
 var subjob = require('../helpers/subjob.js');
+var selectBestDownload = require('../helpers/select-best-download.js');
 
 var PREFIX = "http://gdrive.provider.anyfetch.com";
 
@@ -46,9 +47,13 @@ module.exports = function(app) {
               id: id
             });
           } else {
+            var download = selectBestDownload(file);
             subjob.create(queue, 'upload', {
               title: "Upload " + file.title,
               anyfetchToken: job.data.anyfetchToken,
+              providerToken: job.data.providerToken,
+              downloadUrl: download.url,
+              type: download.type,
               id: id
             });
           }
