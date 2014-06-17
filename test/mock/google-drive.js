@@ -4,7 +4,7 @@ var nock = require('nock');
 var qs = require('querystring');
 var app = require('../../app.js');
 
-var mock = nock(app.get('gdrive.apiUrl'));
+var mock = nock(app.get('gdrive.apiUrl'), {allowUnmocked: true});
 
 mock.get('/drive/v2/changes?' + qs.stringify({
   maxResults: 1000,
