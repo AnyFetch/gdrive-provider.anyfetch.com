@@ -37,3 +37,24 @@ mock.get('/drive/v2/changes?' + qs.stringify({
     }
   ]
 });
+
+mock.get('/drive/v2/changes?' + qs.stringify({
+  maxResults: 1000,
+  startChangeId: "change0",
+  includeDeleted: true
+})).reply(200, {
+  kind: "drive#changeList",
+  items: [
+    {
+      kind: "drive#change",
+      id: "change0",
+      fileId: "file0",
+      deleted: true,
+      modificationDate: Date.now(),
+      file: {
+        kind: "drive#file",
+        id: "file0"
+      }
+    }
+  ]
+});
