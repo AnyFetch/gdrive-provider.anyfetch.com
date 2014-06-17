@@ -6,6 +6,9 @@ var app = require('../../app.js');
 
 var mock = nock(app.get('gdrive.apiUrl'), {allowUnmocked: true});
 
+mock.get('/discovery/v1/apis/drive/v2/rest')
+  .replyWithFile(200, __dirname + '/google-drive/rest.json');
+
 mock.get('/drive/v2/changes?' + qs.stringify({
   maxResults: 1000,
   startChangeId: null,

@@ -1,5 +1,7 @@
 "use strict";
 
+var should = require('should');
+
 require('../mock/index.js');
 var update = require('../../jobs/update.js');
 var clean = require('../helpers/clean.js');
@@ -14,12 +16,14 @@ describe("JOB update", function() {
   it('should succeed and fetch the change id', function(done) {
     var job = {
       data: {
+        title: "A test update",
         providerToken: 'aGoogleRefreshToken',
         cursor: null,
         anyfetchToken: 'anAccessToken'
       }
     };
-    update(app)(job, function assertJobResult(changeId) {
+    update(app)(job, function assertJobResult(err, changeId) {
+      should(err).be.exactly(null);
       changeId.should.be.exactly('change0');
       done();
     });
