@@ -47,10 +47,11 @@ module.exports = function(app) {
       },
       function squashFiles(changes, cb) {
         var lastChangeId = changes[changes.length -1].id;
-        async.reduce(changes, {}, function reduceFile(files, change, cb) {
+        var files = changes.reduce(function reduceFile(files, change) {
           files[PREFIX + change.file.id] = change.deleted?{deleted: true}:change.file;
-          cb(null, files);
-        }, rarity.carry([lastChangeId], cb));
+          return files;
+        }, {});
+        cb(null, lastChangeId, files);
       },
       function spawnUploadJobs(lastChangeId, files, cb) {
         for(var id in files) {
