@@ -28,4 +28,20 @@ describe("JOB update", function() {
       done();
     });
   });
+
+  it('should be able to resume from the right change id', function(done) {
+    var job = {
+      data: {
+        title: "A test update",
+        providerToken: 'aGoogleRefreshToken',
+        cursor: 'change0',
+        anyfetchToken: 'anAccessToken'
+      }
+    };
+    update(app)(job, function assertJobResult(err, changeId) {
+      should(err).be.exactly(null);
+      changeId.should.be.exactly('change1');
+      done();
+    });
+  });
 });
