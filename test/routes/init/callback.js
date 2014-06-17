@@ -1,12 +1,16 @@
 "use strict";
 
-require('should');
+var should = require('should');
 var async = require('async');
 var request = require('supertest');
 var url = require('url');
 var app = require('../../../app.js');
 
 describe("GET /init/callback", function() {
+  beforeEach(function eraseHash(done) {
+    app.get('keyValueStore').del('tokens', done);
+  });
+
   it('should associate successfully the anyfetch access token and the gdrive refresh token in the key/value store if google gives a positive response', function(done) {
     async.waterfall([
       function queryCallback(cb) {
@@ -56,8 +60,8 @@ describe("GET /init/callback", function() {
           .hget('tokens', 'anAccessToken', cb);
       },
       function assertStoredValue(value, cb) {
-        value.should.be.exactly(null);
-        cb();
+        should(value).be.exactly(null);
+         cb();
       }
     ], done);
   });
