@@ -61,7 +61,7 @@ describe("GET /init/callback", function() {
       },
       function assertStoredValue(value, cb) {
         should(value).be.exactly(null);
-         cb();
+        cb();
       }
     ], done);
   });
