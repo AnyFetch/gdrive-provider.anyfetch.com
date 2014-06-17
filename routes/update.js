@@ -36,7 +36,7 @@ module.exports.post = function(req, res, next) {
     function respondAndStartJob(status, cb) {
       queue
         .create('update', jobDesc)
-        .priority('high')
+        .priority('low')
         .attempts(10)
         .save();
       res.send(204);
