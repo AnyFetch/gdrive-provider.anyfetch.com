@@ -3,6 +3,7 @@
 var autoload = require('auto-load');
 var kue = require('kue');
 var async = require('async');
+var rarity = require('rarity');
 var debug = require('debug')('kue:boot');
 var jobs = autoload(__dirname);
 
@@ -18,21 +19,31 @@ module.exports = function(app) {
   }
 
   queue.on('job complete', function(id, result) {
-    var afToken;
     async.waterfall([
       function getJob(cb) {
         kue.Job.get(id, cb);
       },
-      function setCursor(job, cb) {
-        afToken = job.anyfetchToken;
-
-        store.hset('cursor', afToken, result, cb);
+      function removeJob(job, cb) {
+        var anyfetchToken = job.data.anyfetchToken;
+        job.remove(rarity.carry([anyfetchToken], cb));
       },
-      function setLastUpdate(status, cb) {
-        store.hset('lastUpdate', afToken, Date.now().toString(), cb);
+      function setCursor(anyfetchToken, cb) {
+        if(!anyfetchToken) {
+          return cb(null, null, null);
+        }
+        store.hset('cursor', anyfetchToken, result, rarity.carry([anyfetchToken], cb));
       },
-      function unlockUpdate(status, cb) {
-        store.hdel('status', afToken, cb);
+      function setLastUpdate(anyfetchToken, status, cb) {
+        if(!anyfetchToken) {
+          return cb(null, null, null);
+        }
+        store.hset('lastUpdate', anyfetchToken, Date.now().toString(), rarity.carry([anyfetchToken], cb));
+      },
+      function unlockUpdate(anyfetchToken, status, cb) {
+        if(!anyfetchToken) {
+          return cb(null, null, null);
+        }
+        store.hdel('status', anyfetchToken, cb);
       }
     ], function throwErrs(err) {
       if(err) {
