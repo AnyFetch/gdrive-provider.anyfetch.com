@@ -6,7 +6,7 @@ var retrieveAllChanges = require('../helpers/retrieve-all-changes.js');
 var subjob = require('../helpers/subjob.js');
 var selectBestDownload = require('../helpers/select-best-download.js');
 
-var PREFIX = "http://gdrive.provider.anyfetch.com";
+var PREFIX = "http://gdrive.provider.anyfetch.com/";
 
 module.exports = function(app) {
   var queue = app.get('queue');

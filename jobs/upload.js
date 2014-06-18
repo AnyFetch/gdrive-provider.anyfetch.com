@@ -21,7 +21,7 @@ module.exports = function(app) {
           .end(cb);
       },
       function sendFile(fileResponse, cb) {
-        var fileBuffer = new Buffer(fileResponse.body, 'binary');
+        var fileBuffer = new Buffer(fileResponse.text, 'binary');
         var fileConfig = {
           file: job.data.type === "document" ? fileBuffer.toString() : fileBuffer,
           filename: job.data.title,
@@ -44,6 +44,9 @@ module.exports = function(app) {
         anyfetchAuthClient.setAccessToken(job.data.anyfetchToken);
 
         anyfetchAuthClient.sendDocumentAndFile(document, fileConfig, cb);
+      },
+      function formatSuccess(res, cb) {
+        cb(null, res.identifier);
       }
     ], done);
   };
