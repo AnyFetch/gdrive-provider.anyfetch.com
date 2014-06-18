@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var kue = require('kue');
 var redis = require('redis');
 var debug = require('debug');
-var AnyFetch = require('anyfetch');
 var config = require('./config/index.js');
 var routes = require('./routes/routes.js');
 var jobs = require('./jobs/index.js');
@@ -35,13 +34,6 @@ if(app.get('env') !== 'test') {
   jobs(app);
   debug('boot:redis')('job queue ready');
 }
-
-app.set('afOAuth', new AnyFetch(
-  app.get('anyfetch.apiId'),
-  app.get('anyfetch.apiSecret'),
-  app.get('anyfetch.apiUrl'),
-  app.get('anyfetch.managerUrl')
-));
 
 // Apply middleware
 app.use(bodyParser());

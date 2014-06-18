@@ -3,6 +3,7 @@
 var async = require('async');
 var rarity = require('rarity');
 var gApis = require('googleapis');
+var AnyFetch = require('anyfetch');
 
 module.exports.get = function(req, res, next) {
   if(req.query.error || !req.query.code || !req.query.state) {
@@ -18,7 +19,12 @@ module.exports.get = function(req, res, next) {
       ).getToken(req.query.code, cb);
     },
     function getAnyFetchAccessToken(tokens, res, cb) {
-      req.app.get('afOAuth').getAccessToken(
+      new AnyFetch(
+        req.app.get('anyfetch.apiId'),
+        req.app.get('anyfetch.apiSecret'),
+        req.app.get('anyfetch.apiUrl'),
+        req.app.get('anyfetch.managerUrl')
+      ).getAccessToken(
         req.query.state,
         req.app.get('anyfetch.redirectUri'),
         rarity.carry([tokens.refresh_token], cb)

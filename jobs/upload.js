@@ -2,6 +2,7 @@
 
 var async = require('async');
 var gApis = require('googleapis');
+var AnyFetch = require('anyfetch');
 var url =require('url');
 var request = require('supertest');
 
@@ -45,7 +46,12 @@ module.exports = function(app) {
           user_access: [job.data.anyfetchToken]
         };
 
-        var anyfetchAuthClient = app.get('afOAuth');
+        var anyfetchAuthClient = new AnyFetch(
+          app.get('anyfetch.apiId'),
+          app.get('anyfetch.apiSecret'),
+          app.get('anyfetch.apiUrl'),
+          app.get('anyfetch.managerUrl')
+        );
         anyfetchAuthClient.setAccessToken(job.data.anyfetchToken);
 
         anyfetchAuthClient.sendDocumentAndFile(document, fileConfig, cb);
