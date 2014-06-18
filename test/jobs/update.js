@@ -1,6 +1,6 @@
 "use strict";
 
-var should = require('should');
+require('should');
 var async = require('async');
 
 require('../mock/index.js');
@@ -9,11 +9,6 @@ var clean = require('../helpers/clean.js');
 var app = require('../../app.js');
 
 describe("Job update", function() {
-  before(function bindStore() {
-    this.store = app.get('keyValueStore');
-  });
-  beforeEach(clean);
-
   it('should succeed and fetch the change id', function(done) {
     var job = {
       data: {
