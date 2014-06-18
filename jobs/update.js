@@ -3,6 +3,7 @@
 var async = require('async');
 var gApis = require('googleapis');
 var retrieveAllChanges = require('../helpers/retrieve-all-changes.js');
+var subjob = require('../helpers/subjob.js');
 
 var PREFIX = "http://gdrive.provider.anyfetch.com";
 
@@ -39,17 +40,17 @@ module.exports = function(app) {
         for(var id in files) {
           var file = files[id];
           if(file.deleted) {
-            queue.create('deletion', {
+            subjob.create(queue, 'deletion', {
               title: "Delete " + id,
               anyfetchToken: job.data.anyfetchToken,
               id: id
-            }).priority('high').attempts(5);
+            });
           } else {
-            queue.create('upload', {
+            subjob.create(queue, 'upload', {
               title: "Upload " + file.title,
               anyfetchToken: job.data.anyfetchToken,
               id: id
-            }).priority('high').attempts(5);
+            });
           }
         }
         cb(null, lastChangeId);
