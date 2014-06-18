@@ -7,7 +7,7 @@ module.exports.post = function(req, res, next) {
   var store = req.app.get('keyValueStore');
   var queue = req.app.get('queue');
   var jobDesc = {
-    title: "Token " + req.query.access_token,
+    title: "Update for " + req.query.access_token,
     anyfetchToken: req.query.access_token
   };
   async.waterfall([
@@ -36,7 +36,7 @@ module.exports.post = function(req, res, next) {
     function respondAndStartJob(status, cb) {
       queue
         .create('update', jobDesc)
-        .priority('high')
+        .priority('low')
         .attempts(10)
         .save();
       res.send(204);

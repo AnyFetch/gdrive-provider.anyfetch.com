@@ -2,26 +2,14 @@
 
 var async = require('async');
 var request = require('supertest');
+var clean = require('../helpers/clean.js');
 var app = require('../../app.js');
 
 describe("POST /update", function() {
-  beforeEach(function eraseAndPopulateHashs(done) {
+  before(function bindStore() {
     this.store = app.get('keyValueStore');
-    async.series([
-      function delTokens(cb) {
-        this.store.del('tokens', cb);
-      }.bind(this),
-      function delCursors(cb) {
-        this.store.del('cursors', cb);
-      }.bind(this),
-      function delStatus(cb) {
-        this.store.del('status', cb);
-      }.bind(this),
-      function delLastUpdates(cb) {
-        this.store.del('lastUpdates', cb);
-      }.bind(this)
-    ], done);
   });
+  beforeEach(clean);
 
   it('should not update if the provider token is not set', function(done) {
     request(app)

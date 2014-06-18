@@ -3,26 +3,21 @@
 var should = require('should');
 var async = require('async');
 var request = require('supertest');
+var clean = require('../helpers/clean.js');
 var app = require('../../app.js');
 
 describe("DELETE /reset", function() {
-  beforeEach(function eraseAndPopulateHashs(done) {
+  before(function bindStore() {
     this.store = app.get('keyValueStore');
+  });
+  beforeEach(clean);
+  beforeEach(function populateHashs(done) {
     async.series([
-      function delCursors(cb) {
-        this.store.del('cursors', cb);
-      }.bind(this),
       function addCursor(cb) {
         this.store.hset('cursors', 'tok', 'test', cb);
       }.bind(this),
-      function delStatus(cb) {
-        this.store.del('status', cb);
-      }.bind(this),
       function addStatus(cb) {
         this.store.hset('status', 'tok', 'test', cb);
-      }.bind(this),
-      function delLastUpdates(cb) {
-        this.store.del('lastUpdates', cb);
       }.bind(this),
       function addLastUpdate(cb) {
         this.store.hset('lastUpdates', 'tok', 'test', cb);

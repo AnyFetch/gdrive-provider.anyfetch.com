@@ -9,7 +9,7 @@ var gApis = require('googleapis');
 var AnyFetch = require('anyfetch');
 var config = require('./config/index.js');
 var routes = require('./routes/routes.js');
-
+var jobs = require('./jobs/index.js');
 
 // Create the server
 var app = express();
@@ -32,6 +32,7 @@ app.set('queue', kue.createQueue({
     auth: app.get('redis.auth')
   }
 }));
+jobs(app);
 debug('boot:redis')('job queue ready');
 app.set('googleOAuth', new gApis.OAuth2Client(
   app.get('gdrive.apiId'),
