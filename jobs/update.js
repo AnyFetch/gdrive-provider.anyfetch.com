@@ -2,6 +2,7 @@
 
 var async = require('async');
 var gApis = require('googleapis');
+var retrieveAllChanges = require('../helpers/retrieve-all-changes.js');
 
 var PREFIX = "http://gdrive.provider.anyfetch.com";
 
@@ -13,36 +14,18 @@ module.exports = function(app) {
       function discoverApi(cb) {
         gApis.discover('drive', 'v2').execute(cb);
       },
-      function setup(client, cb) {
-        var authClient = app.get('googleOAuth');
-        authClient.credentials = {
-          access_token: "to_renew",
-          refresh_token: job.data.providerToken
-        };
+      function retrieveChanges(client, cb) {
         var options = {
           maxResults: 1000,
           startChangeId: job.data.cursor,
           includeDeleted: (!! job.data.cursor) // cast to bool
         };
-        cb(null, [], options, client, authClient);
-      },
-      function retrievePageOfChanges(changes, options, client, authClient, cb) {
-        client.drive.changes
-          .list(options)
-          .withAuthClient(authClient)
-          .execute(function mergePageOfChanges(err, res) {
-            if(err) {
-              return cb(err);
-            }
-
-            changes = changes.concat(res.items);
-            if(res.nextPageToken) {
-              options.pageToken = res.nextPageToken;
-              retrievePageOfChanges(changes, options, client, authClient, cb);
-            } else {
-              cb(null, changes);
-            }
-          });
+        var authClient = app.get('googleOAuth');
+        authClient.credentials = {
+          access_token: "to_renew",
+          refresh_token: job.data.providerToken
+        };
+        retrieveAllChanges(options, client, authClient, cb);
       },
       function squashFiles(changes, cb) {
         var lastChangeId = changes[changes.length -1].id;
