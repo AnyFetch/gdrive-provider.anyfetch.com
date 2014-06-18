@@ -31,8 +31,8 @@ module.exports = function(app) {
           .list(options)
           .withAuthClient(authClient)
           .execute(function mergePageOfChanges(err, res) {
-            if(err || !res) {
-              return cb(err, res);
+            if(err) {
+              return cb(err);
             }
 
             changes = changes.concat(res.items);
