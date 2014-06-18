@@ -11,7 +11,6 @@ mock.get('/discovery/v1/apis/drive/v2/rest')
 
 mock.get('/drive/v2/changes?' + qs.stringify({
   maxResults: 1000,
-  startChangeId: null,
   includeDeleted: false
 })).reply(200, {
   "kind": "drive#changeList",
@@ -21,7 +20,6 @@ mock.get('/drive/v2/changes?' + qs.stringify({
 
 mock.get('/drive/v2/changes?' + qs.stringify({
   maxResults: 1000,
-  startChangeId: null,
   includeDeleted: false,
   pageToken: "page1"
 })).reply(200, {
@@ -43,8 +41,8 @@ mock.get('/drive/v2/changes?' + qs.stringify({
 
 mock.get('/drive/v2/changes?' + qs.stringify({
   maxResults: 1000,
-  startChangeId: "change0",
-  includeDeleted: true
+  includeDeleted: true,
+  startChangeId: "change0"
 })).reply(200, {
   kind: "drive#changeList",
   items: [

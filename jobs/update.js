@@ -19,9 +19,11 @@ module.exports = function(app) {
       function retrieveChanges(client, cb) {
         var options = {
           maxResults: 1000,
-          startChangeId: job.data.cursor,
           includeDeleted: (!! job.data.cursor) // cast to bool
         };
+        if(job.data.cursor) {
+          options.startChangeId = job.data.cursor;
+        }
         var authClient = new gApis.OAuth2Client(
           app.get('gdrive.apiId'),
           app.get('gdrive.apiSecret'),
