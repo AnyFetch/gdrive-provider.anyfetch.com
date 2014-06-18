@@ -19,7 +19,7 @@ module.exports = function(app) {
       },
       function downloadFile(tokenResponse, reqObj, cb) {
         var token = tokenResponse.access_token;
-        var components = url.parse(job.data.url, true);
+        var components = url.parse(job.data.downloadUrl, true);
         request(components.protocol + '//' + components.host)
           .get(components.pathname)
           .query(components.query)

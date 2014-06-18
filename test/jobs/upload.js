@@ -12,7 +12,7 @@ describe("Job upload", function() {
     var job = {
       data: {
         providerToken: "aGoogleRefreshToken",
-        url: "https://googleusercontent.com/gdoc.pdf",
+        downloadUrl: "https://googleusercontent.com/gdoc.pdf",
         type: 'document',
         title: 'Awesome document.pdf',
         id: 'http://gdrive.provider.anyfetch.com/file0',
