@@ -10,12 +10,11 @@ module.exports = function(app) {
   var queue = app.get('queue');
   var store = app.get('keyValueStore');
 
+  delete jobs.index;
   for(var job in jobs) {
-    if(job !== "index") { // index is not a job, we don't want to register it
-      debug('wait for job type', job);
-      // create new job processor
-      queue.process(job, app.get('concurrency'), jobs[job](app));
-    }
+    debug('wait for job type', job);
+    // create new job processor
+    queue.process(job, app.get('concurrency'), jobs[job](app));
   }
 
   queue.on('job complete', function(id, result) {
