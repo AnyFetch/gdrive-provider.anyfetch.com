@@ -2,6 +2,7 @@
 
 var async = require('async');
 var rarity = require('rarity');
+var gApis = require('googleapis');
 
 module.exports.get = function(req, res, next) {
   if(req.query.error || !req.query.code || !req.query.state) {
@@ -10,7 +11,11 @@ module.exports.get = function(req, res, next) {
 
   async.waterfall([
     function getGoogleRefreshToken(cb) {
-      req.app.get('googleOAuth').getToken(req.query.code, cb);
+      new gApis.OAuth2Client(
+        req.app.get('gdrive.apiId'),
+        req.app.get('gdrive.apiSecret'),
+        req.app.get('gdrive.redirectUri')
+      ).getToken(req.query.code, cb);
     },
     function getAnyFetchAccessToken(tokens, res, cb) {
       req.app.get('afOAuth').getAccessToken(

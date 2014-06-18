@@ -22,7 +22,11 @@ module.exports = function(app) {
           startChangeId: job.data.cursor,
           includeDeleted: (!! job.data.cursor) // cast to bool
         };
-        var authClient = app.get('googleOAuth');
+        var authClient = new gApis.OAuth2Client(
+          app.get('gdrive.apiId'),
+          app.get('gdrive.apiSecret'),
+          app.get('gdrive.redirectUri')
+        );
         authClient.credentials = {
           access_token: "to_renew",
           refresh_token: job.data.providerToken

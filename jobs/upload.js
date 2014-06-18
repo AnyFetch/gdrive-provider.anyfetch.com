@@ -1,6 +1,7 @@
 "use strict";
 
 var async = require('async');
+var gApis = require('googleapis');
 var url =require('url');
 var request = require('supertest');
 
@@ -8,7 +9,11 @@ module.exports = function(app) {
   return function(job, done) {
     async.waterfall([
       function refreshToken(cb) {
-        var authClient = app.get('googleOAuth');
+        var authClient = new gApis.OAuth2Client(
+          app.get('gdrive.apiId'),
+          app.get('gdrive.apiSecret'),
+          app.get('gdrive.redirectUri')
+        );
         authClient.refreshToken_(job.data.providerToken, cb);
       },
       function downloadFile(tokenResponse, reqObj, cb) {

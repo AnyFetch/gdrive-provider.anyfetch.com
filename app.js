@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var kue = require('kue');
 var redis = require('redis');
 var debug = require('debug');
-var gApis = require('googleapis');
 var AnyFetch = require('anyfetch');
 var config = require('./config/index.js');
 var routes = require('./routes/routes.js');
@@ -37,12 +36,6 @@ if(app.get('env') !== 'test') {
   debug('boot:redis')('job queue ready');
 }
 
-app.set('googleOAuth', new gApis.OAuth2Client(
-  app.get('gdrive.apiId'),
-  app.get('gdrive.apiSecret'),
-  app.get('gdrive.redirectUri')
-));
-debug('boot:googleapis')('oauth client ready');
 app.set('afOAuth', new AnyFetch(
   app.get('anyfetch.apiId'),
   app.get('anyfetch.apiSecret'),
