@@ -4,14 +4,19 @@ require('should');
 var async = require('async');
 
 require('../mock/index.js');
-var upload = require('../../jobs/update.js');
+var upload = require('../../jobs/upload.js');
 var app = require('../../app.js');
 
 describe("Job upload", function() {
   it('should succeed to upload a new document to anyfetch', function(done) {
     var job = {
       data: {
-
+        providerToken: "aGoogleRefreshToken",
+        url: "http://downloads/gdoc.pdf",
+        type: 'document',
+        title: 'Awesome document',
+        id: 'file0',
+        anyfetchToken: 'anAccessToken'
       }
     };
 
@@ -22,6 +27,9 @@ describe("Job upload", function() {
       function assertJobResult(changeId, cb) {
         cb();
       }
-    ], done);
+    ], function(err) {
+      console.error(err);
+      done();
+    });
   });
 });

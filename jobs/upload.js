@@ -11,9 +11,9 @@ module.exports = function(app) {
         var authClient = app.get('googleOAuth');
         authClient.refreshToken_(job.data.providerToken, cb);
       },
-      function downloadFile(tokenResponse, cb) {
+      function downloadFile(tokenResponse, reqObj, cb) {
         var token = tokenResponse.access_token;
-        var components = url.parse(job.url, true);
+        var components = url.parse(job.data.url, true);
         request(components.protocol + '//' + components.host)
           .get(components.pathname)
           .query(components.query)

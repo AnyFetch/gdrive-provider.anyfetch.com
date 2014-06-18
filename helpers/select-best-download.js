@@ -2,13 +2,15 @@
 
 module.exports = function(file) {
   if(file.exportLinks) { // this file is a google drive document
-    if(file.exports["text/html"]) {
+    /* if(file.exports["text/html"]) {
       return {
         type: "document",
         url: file.exports["text/html"],
         extension: ".html"
       };
-    } else if(file.exports["application/pdf"]) {
+    } */
+    // we hide html export unless we are able to hydrate zips
+    if(file.exports["application/pdf"]) {
       return {
         type: "file",
         url: file.exports["application/pdf"],
