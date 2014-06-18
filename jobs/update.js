@@ -46,7 +46,7 @@ module.exports = function(app) {
       function spawnUploadJobs(lastChangeId, files, cb) {
         for(var id in files) {
           var file = files[id];
-          if(file.deleted) {
+          if(file.deleted || (job.data.cursor && file.labels.trashed)) {
             subjob.create(queue, 'deletion', {
               title: "Delete " + id,
               anyfetchToken: job.data.anyfetchToken,
@@ -54,15 +54,17 @@ module.exports = function(app) {
             });
           } else {
             var download = selectBestDownload(file);
-            subjob.create(queue, 'upload', {
-              title: file.title + download.extension,
-              anyfetchToken: job.data.anyfetchToken,
-              providerToken: job.data.providerToken,
-              downloadUrl: download.url,
-              showAction: file.alternateLink,
-              type: download.type,
-              id: id
-            });
+            if(download.url && !file.labels.trashed) {
+              subjob.create(queue, 'upload', {
+                title: file.title + download.extension,
+                anyfetchToken: job.data.anyfetchToken,
+                providerToken: job.data.providerToken,
+                downloadUrl: download.url,
+                showAction: file.alternateLink,
+                type: download.type,
+                id: id
+              });
+            }
           }
         }
         cb(null, lastChangeId);
