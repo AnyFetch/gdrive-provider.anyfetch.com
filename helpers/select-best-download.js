@@ -2,24 +2,24 @@
 
 module.exports = function(file) {
   if(file.exportLinks) { // this file is a google drive document
-    /* if(file.exports["text/html"]) {
+    /* if(file.exportLinks["text/html"]) {
       return {
         type: "document",
-        url: file.exports["text/html"],
+        url: file.exportLinks["text/html"],
         extension: ".html"
       };
     } */
     // we hide html export unless we are able to hydrate zips
-    if(file.exports["application/pdf"]) {
+    if(file.exportLinks["application/pdf"]) {
       return {
         type: "file",
-        url: file.exports["application/pdf"],
+        url: file.exportLinks["application/pdf"],
         extension: ".pdf"
       };
-    } else if(file.exports["text/plain"]) {
+    } else if(file.exportLinks["text/plain"]) {
       return {
         type: "document",
-        url: file.exports["text/plain"],
+        url: file.exportLinks["text/plain"],
         extension: ".txt"
       };
     }

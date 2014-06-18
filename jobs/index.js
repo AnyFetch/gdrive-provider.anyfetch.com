@@ -27,19 +27,19 @@ module.exports = function(app) {
         var anyfetchToken = job.data.anyfetchToken;
         job.remove(rarity.carry([anyfetchToken], cb));
       },
-      function setCursor(anyfetchToken, cb) {
+      function setCursor(id, anyfetchToken, cb) {
         if(!anyfetchToken) {
           return cb(null, null, null);
         }
         store.hset('cursor', anyfetchToken, result, rarity.carry([anyfetchToken], cb));
       },
-      function setLastUpdate(anyfetchToken, status, cb) {
+      function setLastUpdate(status, anyfetchToken, cb) {
         if(!anyfetchToken) {
           return cb(null, null, null);
         }
         store.hset('lastUpdate', anyfetchToken, Date.now().toString(), rarity.carry([anyfetchToken], cb));
       },
-      function unlockUpdate(anyfetchToken, status, cb) {
+      function unlockUpdate(status, anyfetchToken, cb) {
         if(!anyfetchToken) {
           return cb(null, null, null);
         }
