@@ -28,9 +28,6 @@ describe("Job upload", function() {
       function assertJobResult(changeId, cb) {
         cb();
       }
-    ], function(err) {
-      console.error(err);
-      done();
-    });
+    ], done);
   });
 });

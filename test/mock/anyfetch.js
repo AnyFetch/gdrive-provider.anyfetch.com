@@ -21,4 +21,6 @@ mock.post('/documents', {
     id: "document0"
 });
 
-mock.post('/documents/identifier/http%3A%2F%2Fgdrive.provider.anyfetch.com%2Ffile0/file').reply(200);
+mock.post('/documents/identifier/http%3A%2F%2Fgdrive.provider.anyfetch.com%2Ffile0/file').reply(204);
+
+mock.delete('/documents/identifier/http%3A%2F%2Fgdrive.provider.anyfetch.com%2Ffile0').reply(204);
