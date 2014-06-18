@@ -4,7 +4,7 @@ var nock = require('nock');
 var qs = require('querystring');
 var app = require('../../app.js');
 
-var mock = nock(app.get('gdrive.apiUrl'), {allowUnmocked: true});
+var mock = nock(app.get('gdrive.apiUrl'));
 
 mock.get('/discovery/v1/apis/drive/v2/rest')
   .replyWithFile(200, __dirname + '/google-drive/rest.json');

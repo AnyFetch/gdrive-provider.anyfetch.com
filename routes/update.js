@@ -1,6 +1,5 @@
 "use strict";
 
-
 var async = require('async');
 
 module.exports.post = function(req, res, next) {

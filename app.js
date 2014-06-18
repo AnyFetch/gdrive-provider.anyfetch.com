@@ -32,8 +32,11 @@ app.set('queue', kue.createQueue({
     auth: app.get('redis.auth')
   }
 }));
-jobs(app);
-debug('boot:redis')('job queue ready');
+if(app.get('env') !== 'test') {
+  jobs(app);
+  debug('boot:redis')('job queue ready');
+}
+
 app.set('googleOAuth', new gApis.OAuth2Client(
   app.get('gdrive.apiId'),
   app.get('gdrive.apiSecret'),
