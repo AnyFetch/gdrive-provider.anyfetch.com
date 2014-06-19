@@ -18,6 +18,13 @@ module.exports = function(app) {
     queue.process(job, app.get('concurrency'), jobs[job](app));
   }
 
+
+  process.once('SIGTERM', function() {
+    queue.shutdown(function() {
+      process.exit(0);
+    }, 5000 );
+  });
+
   queue.on('job complete', function(id, result) {
     async.waterfall([
       function getJob(cb) {
@@ -28,23 +35,22 @@ module.exports = function(app) {
         job.remove(rarity.carry([anyfetchToken], cb));
       },
       function setCursor(id, anyfetchToken, cb) {
-        if(!anyfetchToken) {
-          return cb(null, null, null);
+        if(job.type === 'update') {
+          async.waterfall([
+            function setCursor(cb) {
+              store.hset('cursor', anyfetchToken, result, cb);
+            },
+            function setLastUpdate(status, cb) {
+              store.hset('lastUpdate', anyfetchToken, Date.now().toString(), cb);
+            },
+            function unlockUpdate(status, cb) {
+              store.hdel('status', anyfetchToken, cb);
+            }
+          ], cb);
+        } else {
+          cb();
         }
-        store.hset('cursor', anyfetchToken, result, rarity.carry([anyfetchToken], cb));
       },
-      function setLastUpdate(status, anyfetchToken, cb) {
-        if(!anyfetchToken) {
-          return cb(null, null, null);
-        }
-        store.hset('lastUpdate', anyfetchToken, Date.now().toString(), rarity.carry([anyfetchToken], cb));
-      },
-      function unlockUpdate(status, anyfetchToken, cb) {
-        if(!anyfetchToken) {
-          return cb(null, null, null);
-        }
-        store.hdel('status', anyfetchToken, cb);
-      }
     ], function throwErrs(err) {
       if(err) {
         throw err;
