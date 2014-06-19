@@ -33,7 +33,8 @@ mock.get('/drive/v2/changes?' + qs.stringify({
       modificationDate: Date.now(),
       file: {
         kind: "drive#file",
-        id: "file0"
+        id: "file0",
+        labels: []
       }
     }
   ]
@@ -54,7 +55,8 @@ mock.get('/drive/v2/changes?' + qs.stringify({
       modificationDate: Date.now(),
       file: {
         kind: "drive#file",
-        id: "file0"
+        id: "file0",
+        labels: []
       }
     }
   ]

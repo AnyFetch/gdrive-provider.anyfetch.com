@@ -35,17 +35,12 @@ module.exports = function(app) {
         };
         retrieveAllChanges(options, client, authClient, cb);
       },
-      function squashFiles(changes, cb) {
-        var lastChangeId = changes[changes.length -1].id;
-        var files = changes.reduce(function reduceFile(files, change) {
-          files[PREFIX + change.file.id] = change.deleted?{deleted: true}:change.file;
-          return files;
-        }, {});
-        cb(null, lastChangeId, files);
-      },
-      function spawnUploadJobs(lastChangeId, files, cb) {
-        for(var id in files) {
-          var file = files[id];
+      function spawnUploadJobs(changes, cb) {
+        var lastChangeId = null;
+        changes.forEach(function(change) {
+          var file = change.file;
+          var id = PREFIX + file.id;
+          lastChangeId = change.id;
           if(file.deleted || (job.data.cursor && file.labels.trashed)) {
             subjob.create(queue, 'deletion', {
               title: "Delete " + id,
@@ -66,7 +61,7 @@ module.exports = function(app) {
               });
             }
           }
-        }
+        });
         cb(null, lastChangeId);
       }
     ], done);
