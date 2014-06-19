@@ -1,5 +1,7 @@
 "use strict";
 
+var url = require("url");
+
 module.exports = function(app) {
 
   // Basic configuration
@@ -10,10 +12,18 @@ module.exports = function(app) {
   app.set('maxSize', process.env.MAX_SIZE || 50);
 
   // Redis for job queues
+  var redisUrl = process.env.REDISCLOUD_URL;
   app.set('redis.queuePrefix', process.env.REDIS_QUEUE_PREFIX || 'gdrive-provider');
-  app.set('redis.port', process.env.REDIS_PORT || 6379);
-  app.set('redis.host', process.env.REDIS_HOST || '127.0.0.1');
-  app.set('redis.auth', process.env.REDIS_AUTH || null);
+  if(redisUrl) {
+    var components = url.parse(redisUrl);
+    app.set('redis.port', components.port);
+    app.set('redis.host', components.hostname);
+    app.set('redis.auth', components.auth.split(":")[1]);
+  } else {
+    app.set('redis.port', process.env.REDIS_PORT || 6379);
+    app.set('redis.host', process.env.REDIS_HOST || '127.0.0.1');
+    app.set('redis.auth', process.env.REDIS_AUTH || null);
+  }
 
   // GDrive OAuth informations
   app.set('gdrive.apiUrl', process.env.GDRIVE_API_URL || "https://www.googleapis.com");
