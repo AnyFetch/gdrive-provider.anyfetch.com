@@ -26,7 +26,7 @@ module.exports.post = function(req, res, next) {
     },
     function setUpdateLock(token, cb) {
       if(!token) {
-        return cb(new Error('not initialized'));
+        return cb(new Error('token ' + req.query.access_token + ' not initialized'));
       }
       jobDesc.providerToken = token;
 
