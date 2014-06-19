@@ -1,6 +1,6 @@
 "use strict";
 
-function retrievePageOfChanges(changes, options, client, authClient, cb) {
+module.exports = function retrievePageOfChanges(options, client, authClient, intermediaryCb, cb) {
   client.drive.changes
     .list(options)
     .withAuthClient(authClient)
@@ -9,16 +9,12 @@ function retrievePageOfChanges(changes, options, client, authClient, cb) {
         return cb(err);
       }
 
-      changes = changes.concat(res.items);
+      intermediaryCb(res.items);
       if(res.nextPageToken) {
         options.pageToken = res.nextPageToken;
-        retrievePageOfChanges(changes, options, client, authClient, cb);
+        retrievePageOfChanges(options, client, authClient, intermediaryCb, cb);
       } else {
-        cb(null, changes);
+        cb(null, res.items[res.items.length - 1].id);
       }
     });
-}
-
-module.exports = function(options, client, authClient, cb) {
-  retrievePageOfChanges([], options, client, authClient, cb);
 };
