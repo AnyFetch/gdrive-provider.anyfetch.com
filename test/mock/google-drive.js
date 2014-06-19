@@ -4,14 +4,13 @@ var nock = require('nock');
 var qs = require('querystring');
 var app = require('../../app.js');
 
-var mock = nock(app.get('gdrive.apiUrl'), {allowUnmocked: true});
+var mock = nock(app.get('gdrive.apiUrl'));
 
 mock.get('/discovery/v1/apis/drive/v2/rest')
   .replyWithFile(200, __dirname + '/google-drive/rest.json');
 
 mock.get('/drive/v2/changes?' + qs.stringify({
   maxResults: 1000,
-  startChangeId: null,
   includeDeleted: false
 })).reply(200, {
   "kind": "drive#changeList",
@@ -21,7 +20,6 @@ mock.get('/drive/v2/changes?' + qs.stringify({
 
 mock.get('/drive/v2/changes?' + qs.stringify({
   maxResults: 1000,
-  startChangeId: null,
   includeDeleted: false,
   pageToken: "page1"
 })).reply(200, {
@@ -43,8 +41,8 @@ mock.get('/drive/v2/changes?' + qs.stringify({
 
 mock.get('/drive/v2/changes?' + qs.stringify({
   maxResults: 1000,
-  startChangeId: "change0",
-  includeDeleted: true
+  includeDeleted: true,
+  startChangeId: "change0"
 })).reply(200, {
   kind: "drive#changeList",
   items: [

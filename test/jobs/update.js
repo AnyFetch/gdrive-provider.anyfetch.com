@@ -5,7 +5,6 @@ var async = require('async');
 
 require('../mock/index.js');
 var update = require('../../jobs/update.js');
-var clean = require('../helpers/clean.js');
 var app = require('../../app.js');
 
 describe("Job update", function() {

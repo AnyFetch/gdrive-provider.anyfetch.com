@@ -1,7 +1,13 @@
 "use strict";
 
+var gApis = require('googleapis');
+
 module.exports.get = function(req, res, next) {
-  var authorizeUrl = req.app.get('googleOAuth').generateAuthUrl({
+  var authorizeUrl = new gApis.OAuth2Client(
+    req.app.get('gdrive.apiId'),
+    req.app.get('gdrive.apiSecret'),
+    req.app.get('gdrive.redirectUri')
+  ).generateAuthUrl({
     scope: "https://www.googleapis.com/auth/drive.readonly",
     approval_prompt: "force",
     access_type: "offline",

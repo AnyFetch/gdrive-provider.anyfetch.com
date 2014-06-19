@@ -7,6 +7,7 @@ module.exports = function(app) {
   app.set('env', process.env.NODE_ENV || "development");
   app.set('port', process.env.PORT || 3000);
   app.set('concurrency', process.env.CONCURRENCY || 5);
+  app.set('maxSize', process.env.MAX_SIZE || 50);
 
   // Redis for job queues
   app.set('redis.queuePrefix', process.env.REDIS_QUEUE_PREFIX || 'gdrive-provider');

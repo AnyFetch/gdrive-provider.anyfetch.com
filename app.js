@@ -5,8 +5,6 @@ var bodyParser = require('body-parser');
 var kue = require('kue');
 var redis = require('redis');
 var debug = require('debug');
-var gApis = require('googleapis');
-var AnyFetch = require('anyfetch');
 var config = require('./config/index.js');
 var routes = require('./routes/routes.js');
 var jobs = require('./jobs/index.js');
@@ -32,20 +30,10 @@ app.set('queue', kue.createQueue({
     auth: app.get('redis.auth')
   }
 }));
-jobs(app);
-debug('boot:redis')('job queue ready');
-app.set('googleOAuth', new gApis.OAuth2Client(
-  app.get('gdrive.apiId'),
-  app.get('gdrive.apiSecret'),
-  app.get('gdrive.redirectUri')
-));
-debug('boot:googleapis')('oauth client ready');
-app.set('afOAuth', new AnyFetch(
-  app.get('anyfetch.apiId'),
-  app.get('anyfetch.apiSecret'),
-  app.get('anyfetch.apiUrl'),
-  app.get('anyfetch.managerUrl')
-));
+if(app.get('env') !== 'test') {
+  jobs(app);
+  debug('boot:redis')('job queue ready');
+}
 
 // Apply middleware
 app.use(bodyParser());
