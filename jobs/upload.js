@@ -3,8 +3,9 @@
 var async = require('async');
 var gApis = require('googleapis');
 var AnyFetch = require('anyfetch');
-var url =require('url');
-var request = require('supertest');
+var rarity = require('rarity');
+var url = require('url');
+var https = require('https');
 
 module.exports = function(app) {
   return function(job, done) {
@@ -18,20 +19,20 @@ module.exports = function(app) {
         authClient.refreshToken_(job.data.providerToken, cb);
       },
       function downloadFile(tokenResponse, reqObj, cb) {
-        var token = tokenResponse.access_token;
-        var components = url.parse(job.data.downloadUrl, true);
-        request(components.protocol + '//' + components.host)
-          .get(components.pathname)
-          .query(components.query)
-          .set("Authorization", "Bearer " + token)
-          .end(cb);
+        var options = url.parse(job.data.downloadUrl);
+        options.headers = {
+          'Authorization': 'Bearer ' + tokenResponse.access_token
+        };
+        var req = https.request(options, rarity.pad([null], cb));
+        req.on('error', cb);
+        req.end();
       },
       function sendFile(fileResponse, cb) {
-        var fileBuffer = new Buffer(fileResponse.text, 'binary');
-        var fileConfig = {
-          file: job.data.type === "document" ? fileBuffer.toString() : fileBuffer,
-          filename: job.data.title,
-          knownLength: job.data.type === "document" ? fileBuffer.toString().length : fileBuffer.length
+        var fileConfig = function() {
+          return {
+            file: fileResponse,
+            filename: job.data.title
+          };
         };
         var document = {
           identifier: job.data.id,
@@ -53,8 +54,7 @@ module.exports = function(app) {
           app.get('anyfetch.managerUrl')
         );
         anyfetchAuthClient.setAccessToken(job.data.anyfetchToken);
-
-        anyfetchAuthClient.sendDocumentAndFile(document, fileConfig, cb);
+        anyfetchAuthClient.sendDocumentAndFile(document, fileConfig(), cb);
       },
       function formatSuccess(res, cb) {
         cb(null, res.identifier);
