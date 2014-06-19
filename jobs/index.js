@@ -5,17 +5,17 @@ var kue = require('kue');
 var async = require('async');
 var rarity = require('rarity');
 var debug = require('debug')('kue:boot');
-var jobs = autoload(__dirname);
+var processors = autoload(__dirname);
 
 module.exports = function(app) {
   var queue = app.get('queue');
   var store = app.get('keyValueStore');
 
-  delete jobs.index;
-  for(var job in jobs) {
-    debug('wait for job type', job);
+  delete processors.index;
+  for(var processor in processors) {
+    debug('wait for job type', processor);
     // create new job processor
-    queue.process(job, app.get('concurrency'), jobs[job](app));
+    queue.process(processor, app.get('concurrency'), processors[processor](app));
   }
 
 
@@ -32,9 +32,9 @@ module.exports = function(app) {
       },
       function removeJob(job, cb) {
         var anyfetchToken = job.data.anyfetchToken;
-        job.remove(rarity.carry([anyfetchToken], cb));
+        job.remove(rarity.carry([anyfetchToken, job], cb));
       },
-      function setCursor(id, anyfetchToken, cb) {
+      function setCursor(id, anyfetchToken, job, cb) {
         if(job.type === 'update') {
           async.waterfall([
             function setCursor(cb) {
