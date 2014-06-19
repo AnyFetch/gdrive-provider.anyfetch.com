@@ -14,7 +14,7 @@ describe("POST /update", function() {
   it('should not update if the provider token is not set', function(done) {
     request(app)
       .post('/update')
-      .query({ access_token: 'tok' })
+      .send({ access_token: 'tok' })
       .expect(500)
       .expect(/not initialized/)
       .end(done);
@@ -28,7 +28,7 @@ describe("POST /update", function() {
       function requestUpdate(status, cb) {
         request(app)
           .post('/update')
-          .query({ access_token: 'tok' })
+          .send({ access_token: 'tok' })
           .expect(204)
           .end(cb);
       }
@@ -43,14 +43,14 @@ describe("POST /update", function() {
       function requestUpdate(status, cb) {
         request(app)
           .post('/update')
-          .query({ access_token: 'tok' })
+          .send({ access_token: 'tok' })
           .expect(204)
           .end(cb);
       },
       function requestUpdate(status, cb) {
         request(app)
           .post('/update')
-          .query({ access_token: 'tok' })
+          .send({ access_token: 'tok' })
           .expect(500)
           .expect(/already processing/)
           .end(cb);

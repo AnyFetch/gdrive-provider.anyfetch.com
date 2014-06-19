@@ -6,31 +6,31 @@ module.exports.post = function(req, res, next) {
   var store = req.app.get('keyValueStore');
   var queue = req.app.get('queue');
   var jobDesc = {
-    title: "Update for " + req.query.access_token,
-    anyfetchToken: req.query.access_token
+    title: "Update for " + req.body.access_token,
+    anyfetchToken: req.body.access_token
   };
   async.waterfall([
     function getStatus(cb) {
-      store.hget('status', req.query.access_token, cb);
+      store.hget('status', req.body.access_token, cb);
     },
     function getCursor(status, cb) {
       if(status) {
         return cb(new Error('already processing'));
       }
-      store.hget('cursors', req.query.access_token, cb);
+      store.hget('cursors', req.body.access_token, cb);
     },
     function getOtherToken(cur, cb) {
       jobDesc.cursor = cur;
 
-      store.hget('tokens', req.query.access_token, cb);
+      store.hget('tokens', req.body.access_token, cb);
     },
     function setUpdateLock(token, cb) {
       if(!token) {
-        return cb(new Error('token ' + req.query.access_token + ' not initialized'));
+        return cb(new Error('token ' + req.body.access_token + ' not initialized'));
       }
       jobDesc.providerToken = token;
 
-      store.hset('status', req.query.access_token, 'true', cb);
+      store.hset('status', req.body.access_token, 'true', cb);
     },
     function respondAndStartJob(status, cb) {
       queue
