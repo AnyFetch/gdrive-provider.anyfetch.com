@@ -33,7 +33,7 @@ module.exports = function(app) {
       function removeJob(job, cb) {
         job.remove(rarity.carry([job], cb));
       },
-      function setCursor(job, id, cb) {
+      function setCursor(job, cb) {
         if(job.type === 'update') {
           async.waterfall([
             function setCursor(cb) {
