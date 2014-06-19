@@ -35,6 +35,7 @@ module.exports = function(app) {
         job.remove(rarity.carry([anyfetchToken, job], cb));
       },
       function setCursor(id, anyfetchToken, job, cb) {
+        console.log(id, anyfetchToken, job, cb);
         if(job.type === 'update') {
           async.waterfall([
             function setCursor(cb) {
