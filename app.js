@@ -1,13 +1,45 @@
 "use strict";
 
-// Load configuration and initialize server
-var anyfetchProvider = require('anyfetch-provider');
+var express = require('express');
+var bodyParser = require('body-parser');
+var kue = require('kue');
+var redis = require('redis');
+var debug = require('debug');
+var config = require('./config/index.js');
+var routes = require('./routes/routes.js');
+var jobs = require('./jobs/index.js');
 
-var providerGoogleDrive = require('./lib/');
-var config = require('./config/configuration.js');
+// Create the server
+var app = express();
 
-var serverHandlers = providerGoogleDrive(config);
-var server = anyfetchProvider.createServer(serverHandlers);
+// Bind global values
+config(app);
+app.set('keyValueStore', redis.createClient(
+  app.get('redis.port'),
+  app.get('redis.host'),
+  {
+    auth_pass: app.get('redis.auth')
+  }
+));
+debug('boot:redis')('key/value store ready');
+app.set('queue', kue.createQueue({
+  prefix: app.get('redis.queuePrefix'),
+  redis: {
+    port: app.get('redis.port'),
+    host: app.get('redis.host'),
+    auth: app.get('redis.auth')
+  }
+}));
+if(app.get('env') !== 'test') {
+  jobs(app);
+  debug('boot:redis')('job queue ready');
+}
 
-// Expose the server
-module.exports = server;
+// Apply middleware
+app.use(bodyParser());
+
+// Apply routes
+routes(app);
+
+// Return
+module.exports = app;

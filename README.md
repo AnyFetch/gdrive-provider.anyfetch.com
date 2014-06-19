@@ -1,63 +1,58 @@
-# Google Drive AnyFetch Provider
-> Visit http://anyfetch.com for details about AnyFetch.
+# AnyFetch provider for Google Drive
 
-AnyFetch provider for files stored in Google Drive
+> What is Anyfetch ? [anyfetch.com](http://anyfetch.com/)
 
-# How to install?
-Vagrant up everything (`vagrant up`, `vagrant ssh`).
+## Installation
 
-You'll need to define some environment variables
+### Requirements
 
-```bash
-# Go to https://cloud.google.com/console#/flows/enableapi?apiid=drive to ask for app id and secret
-export GOOGLE_DRIVE_ID="gdrive-id"
-export GOOGLE_DRIVE_SECRET="gdrive-secret"
+* [Redis](http://redis.io)
 
-# Callback after gdrive consent, most probably https://your-host/init/callback
-export GOOGLE_DRIVE_CALLBACK_URL="callback-after-gdrive-consent"
-# Callback from manager, most probably https://your-host/init/connect
-export GOOGLE_DRIVE_CONNECT_URL=""
+### Get the app
 
-# AnyFetch app id and secret
-export GOOGLE_DRIVE_ANYFETCH_ID="anyfetch-app-id"
-export GOOGLE_DRIVE_ANYFETCH_SECRET="anyfetch-app-secret"
-
-# Number of files to upload at the same time
-export GOOGLE_DRIVE_MAX_CONCURRENCY="5"
-
-# See below for details
-export GOOGLE_DRIVE_TEST_OAUTH_TOKEN_SECRET=""
-export GOOGLE_DRIVE_TEST_OAUTH_TOKEN=""
-export GOOGLE_DRIVE_TEST_UID=""
-# Leave empty for first run
-export GOOGLE_DRIVE_TEST_CURSOR=""
+```shell
+git clone git@github.com:AnyFetch/gdrive.provider.anyfetch.com.git
+cd gdrive.provider.anyfetch.com
+npm install
 ```
 
-# How does it works?
-Fetch API will call `/init/connect` with anyfetch authorization code. We will generate a request_token and transparently redirect the user to gdrive consentment page.
-gdrive will then call us back on `/init/callback`. We'll check our request_token has been granted approval, and store this.
+## Test
+
+```
+npm test
+```
+
+## Usage
+
+Create a `keys.sh` file:
+
+```shell
+# Create a client app at https://cloud.google.com/console
+export GDRIVE_API_ID="google client id"
+export GDRIVE_API_SECRET="google client secret"
+export GDRIVE_REDIRECT_URI="http://myprovider.example.com/init/callback"
+
+# Create a client app at http://manager.anyfetch.com/clients/new
+export ANYFETCH_API_ID="anyfetch client id"
+export ANYFETCH_API_SECRET="anyfetch client secret"
+export ANYFETCH_REDIRECT_URI="http://myprovider.example.com/init/connect"
+```
+
+Source and start !
+
+```shell
+source keys.sh
+npm start
+```
+
+You can see the job queue here at [`/queue/active`](http://localhost:3000/queue/active).
+
+## How does it work ?
+
+Fetch API will call `/init/connect` with anyfetch authorization code. We will generate a request_token and transparently redirect the user to gdrive consentment page. gdrive will then call us back on `/init/callback`. We'll check our request_token has been granted approval, and store this.
 
 We can now sync data between gdrive and AnyFetch.
 
-This is where the `upload` helper comes into play.
-Every time `upload` is called, the function will retrieve, for all the accounts, the files modified since the last run, and upload the data to AnyFetch.
-Deleted files will also be deleted from AnyFetch.
+This is where the `upload` helper comes into play. Every time `upload` is called, the function will retrieve, for all the accounts, the files modified since the last run, and upload the data to AnyFetch. Deleted files will also be deleted from AnyFetch.
 
 The computation of the delta (between last run and now) or by push is done by gdrive, and can be really long in some rare cases (for most accounts it is a few seconds, on mine it lasts for 25 minutes -- heavy gdrive users beware! And that says nothing about the time to retrieve the data after.)
-
-# How to test?
-Unfortunately, testing this module is really hard.
-This project is basically a simple bridge between gdrive and AnyFetch, so testing requires tiptoeing with the network and gdrive / AnyFetch servers.
-
-Before running the test suite, you'll need to do:
-
-```
-> node test-auth.js
-```
-
-Follow the link in your browser with your gdrive.
-After that, press enter and copy the result in your shell, then. Save the values as GOOGLE_DRIVE_TEST_* environment variable.
-
-> *Advanced users*: keep `GOOGLE_DRIVE_TEST_CURSOR` empty by default. If you want to make the tests run faster, `console.log` the return of a call to `helpers.retrieve.delta()` and paste the `cursor` value.
-
-Support: `support@papiel.fr`.
