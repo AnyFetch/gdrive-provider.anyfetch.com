@@ -31,20 +31,19 @@ module.exports = function(app) {
         kue.Job.get(id, cb);
       },
       function removeJob(job, cb) {
-        var anyfetchToken = job.data.anyfetchToken;
-        job.remove(rarity.carry([anyfetchToken, job], cb));
+        job.remove(rarity.carry([job], cb));
       },
-      function setCursor(anyfetchToken, job, id, cb) {
+      function setCursor(job, id, cb) {
         if(job.type === 'update') {
           async.waterfall([
             function setCursor(cb) {
-              store.hset('cursor', anyfetchToken, result, cb);
+              store.hset('cursor', job.data.anyfetchToken, result, cb);
             },
             function setLastUpdate(status, cb) {
-              store.hset('lastUpdate', anyfetchToken, Date.now().toString(), cb);
+              store.hset('lastUpdate', job.data.anyfetchToken, Date.now().toString(), cb);
             },
             function unlockUpdate(status, cb) {
-              store.hdel('status', anyfetchToken, cb);
+              store.hdel('status', job.data.anyfetchToken, cb);
             }
           ], cb);
         } else {
