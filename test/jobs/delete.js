@@ -21,9 +21,6 @@ describe("Job delete", function() {
     async.waterfall([
       function startJob(cb) {
         del(app)(job, cb);
-      },
-      function assertJobResult(changeId, cb) {
-        cb();
       }
     ], done);
   });

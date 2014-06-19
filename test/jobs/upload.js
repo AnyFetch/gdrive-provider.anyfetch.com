@@ -24,9 +24,6 @@ describe("Job upload", function() {
     async.waterfall([
       function startJob(cb) {
         upload(app)(job, cb);
-      },
-      function assertJobResult(changeId, cb) {
-        cb();
       }
     ], done);
   });
