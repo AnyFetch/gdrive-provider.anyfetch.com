@@ -1,6 +1,6 @@
 # AnyFetch provider for Google Drive
 
-> **What is Anyfetch ? ** [anyfetch.com](http://anyfetch.com/)
+> What is Anyfetch ? [anyfetch.com](http://anyfetch.com/)
 
 ## Installation
 
