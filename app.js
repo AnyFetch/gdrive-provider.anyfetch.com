@@ -28,7 +28,8 @@ app.set('queue', kue.createQueue({
     port: app.get('redis.port'),
     host: app.get('redis.host'),
     auth: app.get('redis.auth')
-  }
+  },
+  disableSearch: true
 }));
 if(app.get('env') !== 'test') {
   jobs(app);
