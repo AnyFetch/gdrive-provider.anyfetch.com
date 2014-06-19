@@ -5,6 +5,7 @@ var qs = require('querystring');
 var app = require('../../app.js');
 
 var mock = nock(app.get('gdrive.accountServer'));
+
 mock.post('/o/oauth2/token', qs.stringify({
   code: 'aGoogleCode',
   client_id: app.get('gdrive.apiId'),
@@ -19,7 +20,7 @@ mock.post('/o/oauth2/token', qs.stringify({
 });
 
 mock.post('/o/oauth2/token',  qs.stringify({
-  refresh_token: 'aRefreshToken',
+  refresh_token: 'aGoogleRefreshToken',
   client_id: app.get('gdrive.apiId'),
   client_secret: app.get('gdrive.apiSecret'),
   grant_type: 'refresh_token'

@@ -3,6 +3,7 @@
 var autoload = require('auto-load');
 var kue = require('kue');
 var async = require('async');
+var rarity = require('rarity');
 var debug = require('debug')('kue:boot');
 var jobs = autoload(__dirname);
 
@@ -17,23 +18,39 @@ module.exports = function(app) {
     queue.process(job, app.get('concurrency'), jobs[job](app));
   }
 
+
+  process.once('SIGTERM', function() {
+    queue.shutdown(function() {
+      process.exit(0);
+    }, 5000 );
+  });
+
   queue.on('job complete', function(id, result) {
-    var afToken;
     async.waterfall([
       function getJob(cb) {
         kue.Job.get(id, cb);
       },
-      function setCursor(job, cb) {
-        afToken = job.anyfetchToken;
-
-        store.hset('cursor', afToken, result, cb);
+      function removeJob(job, cb) {
+        var anyfetchToken = job.data.anyfetchToken;
+        job.remove(rarity.carry([anyfetchToken], cb));
       },
-      function setLastUpdate(status, cb) {
-        store.hset('lastUpdate', afToken, Date.now().toString(), cb);
+      function setCursor(id, anyfetchToken, cb) {
+        if(job.type === 'update') {
+          async.waterfall([
+            function setCursor(cb) {
+              store.hset('cursor', anyfetchToken, result, cb);
+            },
+            function setLastUpdate(status, cb) {
+              store.hset('lastUpdate', anyfetchToken, Date.now().toString(), cb);
+            },
+            function unlockUpdate(status, cb) {
+              store.hdel('status', anyfetchToken, cb);
+            }
+          ], cb);
+        } else {
+          cb();
+        }
       },
-      function unlockUpdate(status, cb) {
-        store.hdel('status', afToken, cb);
-      }
     ], function throwErrs(err) {
       if(err) {
         throw err;
