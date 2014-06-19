@@ -1,5 +1,6 @@
 "use strict";
 
+var debug = require('debug');
 var subjob = require('./subjob.js');
 var selectBestDownload = require('../helpers/select-best-download.js');
 
@@ -21,6 +22,7 @@ module.exports = function (job, app) {
           id: id
         });
       } else {
+        debug('info:gdrive')('analyzing file ', file.title);
         var download = selectBestDownload(file);
         if(download.url && !file.labels.trashed && file.fileSize < app.get('maxSize') * 1024 * 1024) {
           subjob.create(queue, 'upload', {

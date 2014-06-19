@@ -34,7 +34,9 @@ mock.get('/drive/v2/changes?' + qs.stringify({
       file: {
         kind: "drive#file",
         id: "file0",
-        labels: []
+        labels: [],
+        fileSize: 10,
+        downloadUrl: "http://googleusercontent.com/gdoc.pdf"
       }
     }
   ]
@@ -56,7 +58,9 @@ mock.get('/drive/v2/changes?' + qs.stringify({
       file: {
         kind: "drive#file",
         id: "file0",
-        labels: []
+        labels: [],
+        fileSize: 10,
+        downloadUrl: "http://googleusercontent.com/gdoc.pdf"
       }
     }
   ]
