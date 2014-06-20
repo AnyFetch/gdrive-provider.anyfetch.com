@@ -32,6 +32,7 @@ module.exports = function (job, app) {
             downloadUrl: download.url,
             showAction: file.alternateLink,
             type: download.type,
+            date: file.createdDate,
             id: id
           });
         }
