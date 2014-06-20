@@ -10,6 +10,7 @@ module.exports = function(app) {
   app.set('port', process.env.PORT || 3000);
   app.set('concurrency', process.env.CONCURRENCY || 5);
   app.set('maxSize', process.env.MAX_SIZE || 50);
+  app.set('kueWeb', process.env.KUE_WEB || false);
 
   // Redis for job queues
   var redisUrl = process.env.REDISCLOUD_URL;
