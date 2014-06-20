@@ -4,6 +4,7 @@ var async = require('async');
 var rarity = require('rarity');
 var gApis = require('googleapis');
 var AnyFetch = require('anyfetch');
+var wEnd = require('../../helpers/waterfall-end.js');
 
 module.exports.get = function(req, res, next) {
   if(req.query.error || !req.query.code || !req.query.state) {
@@ -36,7 +37,8 @@ module.exports.get = function(req, res, next) {
     },
     function redirect(reply, cb) {
       res.redirect(req.app.get('anyfetch.managerUrl') + '/tokens');
+      res.end();
       cb();
     }
-  ], next);
+  ], wEnd(next));
 };

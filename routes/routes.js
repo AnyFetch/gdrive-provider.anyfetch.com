@@ -12,6 +12,8 @@ module.exports = function(app) {
   app.get('/init/callback', routes.init.callback.get);
 
   // Setup kue webinterface
-  kue.app.set('title', app.get('title'));
-  app.use('/queue', kue.app);
+  if(app.get('kueWeb')) {
+    kue.app.set('title', app.get('title'));
+    app.use('/queue', kue.app);
+  }
 };
