@@ -7,7 +7,7 @@ var errName = 'Too Many Requests';
 
 function TooManyRequests(message) {
   this.name = errName;
-  this.statusCode = 429;
+  this.status = 429;
   this.message = message;
 }
 

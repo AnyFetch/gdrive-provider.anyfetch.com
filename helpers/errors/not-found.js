@@ -7,7 +7,7 @@ var errName = 'Not Found';
 
 function NotFound(message) {
   this.name = errName;
-  this.statusCode = 404;
+  this.status = 404;
   this.message = message;
 }
 

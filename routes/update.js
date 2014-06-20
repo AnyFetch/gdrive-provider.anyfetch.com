@@ -2,8 +2,8 @@
 
 var async = require('async');
 var wEnd = require('../helpers/waterfall-end.js');
+require('../helpers/errors/index.js');
 var errors = require('express').errors;
-console.log(errors)
 
 module.exports.post = function(req, res, next) {
   var store = req.app.get('keyValueStore');
