@@ -3,7 +3,8 @@
 var async = require('async');
 var wEnd = require('../helpers/waterfall-end.js');
 require('../helpers/errors/index.js');
-var errors = require('express').errors;
+var express = require('express');
+var errors = express.errors;
 
 module.exports.post = function(req, res, next) {
   var store = req.app.get('keyValueStore');
