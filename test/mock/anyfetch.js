@@ -14,6 +14,7 @@ mock.post('/documents', {
     title: 'Awesome document.pdf',
     path: 'http://gdrive.provider.anyfetch.com/file0/Awesome document.pdf'
   },
+  creation_date: "somedate",
   document_type: 'document',
   user_access: [ 'anAccessToken' ]
 }).reply(200, {
