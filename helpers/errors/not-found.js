@@ -3,7 +3,7 @@
 var express = require('express');
 var util = require('util');
 
-var errName = 'Not Found';
+var errName = 'NotFound';
 
 function NotFound(message) {
   this.name = errName;

@@ -3,7 +3,7 @@
 var express = require('express');
 var util = require('util');
 
-var errName = 'Too Many Requests';
+var errName = 'TooManyRequests';
 
 function TooManyRequests(message) {
   this.name = errName;
