@@ -39,6 +39,7 @@ module.exports = function(app) {
           actions: {
             show: job.data.showAction
           },
+          creation_date: job.data.date,
           metadata: {
             title: job.data.title,
             path: job.data.id + '/' + job.data.title

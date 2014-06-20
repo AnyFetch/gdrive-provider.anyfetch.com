@@ -18,6 +18,7 @@ describe("Job upload", function() {
         id: 'http://gdrive.provider.anyfetch.com/file0',
         anyfetchToken: 'anAccessToken',
         showAction: 'http://downloads/show/gdoc',
+        date: "somedate"
       }
     };
 
