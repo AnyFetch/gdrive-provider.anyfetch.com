@@ -1,6 +1,7 @@
 "use strict";
 
 var async = require('async');
+var wEnd = require('../helpers/waterfall-end.js');
 
 module.exports.post = function(req, res, next) {
   var store = req.app.get('keyValueStore');
@@ -39,7 +40,8 @@ module.exports.post = function(req, res, next) {
         .attempts(10)
         .save();
       res.send(204);
+      res.end();
       cb();
     }
-  ], next);
+  ], wEnd(next));
 };

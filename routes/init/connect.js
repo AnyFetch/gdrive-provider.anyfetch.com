@@ -2,7 +2,7 @@
 
 var gApis = require('googleapis');
 
-module.exports.get = function(req, res, next) {
+module.exports.get = function(req, res) {
   var authorizeUrl = new gApis.OAuth2Client(
     req.app.get('gdrive.apiId'),
     req.app.get('gdrive.apiSecret'),
@@ -15,5 +15,5 @@ module.exports.get = function(req, res, next) {
   });
 
   res.redirect(authorizeUrl);
-  next();
+  res.end();
 };

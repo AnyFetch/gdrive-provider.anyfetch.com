@@ -1,6 +1,7 @@
 "use strict";
 
 var async = require('async');
+var wEnd = require('../helpers/waterfall-end.js');
 
 module.exports.del = function(req, res, next) {
   var store = req.app.get('keyValueStore');
@@ -16,7 +17,8 @@ module.exports.del = function(req, res, next) {
     },
     function response(status, cb) {
       res.send(204);
+      res.end();
       cb();
     }
-  ], next);
+  ], wEnd(next));
 };
