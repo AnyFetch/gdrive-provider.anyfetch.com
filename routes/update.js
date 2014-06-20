@@ -2,7 +2,8 @@
 
 var async = require('async');
 var wEnd = require('../helpers/waterfall-end.js');
-var errors = require('../helpers/errors.js');
+var errors = require('express').errors;
+console.log(errors)
 
 module.exports.post = function(req, res, next) {
   var store = req.app.get('keyValueStore');
@@ -17,7 +18,7 @@ module.exports.post = function(req, res, next) {
     },
     function getCursor(status, cb) {
       if(status) {
-        return cb(new errors.TooManyRequestsError("Already Processing"));
+        return cb(new errors['Too Many Requests']("Already Processing"));
       }
       store.hget('cursors', req.body.access_token, cb);
     },
@@ -28,7 +29,7 @@ module.exports.post = function(req, res, next) {
     },
     function setUpdateLock(token, cb) {
       if(!token) {
-        return cb(new errors.NotFoundError("Token Not Initialized"));
+        return cb(new errors['Not Found']("Token Not Initialized"));
       }
       jobDesc.providerToken = token;
 

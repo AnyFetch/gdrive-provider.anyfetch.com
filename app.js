@@ -8,6 +8,7 @@ var debug = require('debug');
 var config = require('./config/index.js');
 var routes = require('./routes/routes.js');
 var jobs = require('./jobs/index.js');
+require('./helpers/errors/index.js');
 
 // Create the server
 var app = express();
