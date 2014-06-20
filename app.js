@@ -9,6 +9,8 @@ var config = require('./config/index.js');
 var routes = require('./routes/routes.js');
 var jobs = require('./jobs/index.js');
 
+require('./helpers/errors');
+
 // Create the server
 var app = express();
 

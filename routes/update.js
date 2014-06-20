@@ -1,6 +1,7 @@
 "use strict";
 
 var async = require('async');
+var express = require('express');
 var wEnd = require('../helpers/waterfall-end.js');
 
 module.exports.post = function(req, res, next) {
@@ -16,7 +17,7 @@ module.exports.post = function(req, res, next) {
     },
     function getCursor(status, cb) {
       if(status) {
-        return cb(new Error('already processing'));
+        return cb(new express.errors.TooManyRequests("Already Processing"));
       }
       store.hget('cursors', req.body.access_token, cb);
     },
@@ -27,7 +28,7 @@ module.exports.post = function(req, res, next) {
     },
     function setUpdateLock(token, cb) {
       if(!token) {
-        return cb(new Error('token ' + req.body.access_token + ' not initialized'));
+        return cb(new express.errors.NotFound("Token Not Initialized"));
       }
       jobDesc.providerToken = token;
 
