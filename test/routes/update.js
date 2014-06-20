@@ -16,7 +16,7 @@ describe("POST /update", function() {
       .post('/update')
       .send({ access_token: 'tok' })
       .expect(404)
-      .expect(/Token Not Initialized/)
+      .expect(/token not initialized/i)
       .end(done);
   });
 
@@ -52,7 +52,7 @@ describe("POST /update", function() {
           .post('/update')
           .send({ access_token: 'tok' })
           .expect(429)
-          .expect(/Already Processing/)
+          .expect(/already processing/i)
           .end(cb);
       }
     ], done);
