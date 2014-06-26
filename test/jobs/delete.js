@@ -9,7 +9,7 @@ var app = require('../../app.js');
 
 describe("Job delete", function() {
   it('should succeed to delete a document in anyfetch', function(done) {
-    var id = 'http://gdrive.provider.anyfetch.com/file0';
+    var id = 'https://docs.google.com/file/d/file0';
     var job = {
       data: {
         title: "Delete " + id,

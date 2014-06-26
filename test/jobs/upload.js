@@ -15,9 +15,8 @@ describe("Job upload", function() {
         downloadUrl: "https://googleusercontent.com/gdoc.pdf",
         type: 'document',
         title: 'Awesome document.pdf',
-        id: 'http://gdrive.provider.anyfetch.com/file0',
+        id: 'https://docs.google.com/file/d/file0',
         anyfetchToken: 'anAccessToken',
-        showAction: 'http://downloads/show/gdoc',
         date: "somedate"
       }
     };
