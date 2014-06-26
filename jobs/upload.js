@@ -37,7 +37,7 @@ module.exports = function(app) {
         var document = {
           identifier: job.data.id,
           actions: {
-            show: job.data.showAction
+            show: job.data.id
           },
           creation_date: job.data.date,
           metadata: {

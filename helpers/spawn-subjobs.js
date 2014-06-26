@@ -4,7 +4,7 @@ var debug = require('debug');
 var subjob = require('./subjob.js');
 var selectBestDownload = require('../helpers/select-best-download.js');
 
-var PREFIX = "http://gdrive.provider.anyfetch.com/";
+var PREFIX = "https://docs.google.com/file/d/";
 
 module.exports = function (job, app) {
   var queue = app.get('queue');
@@ -30,7 +30,6 @@ module.exports = function (job, app) {
             anyfetchToken: job.data.anyfetchToken,
             providerToken: job.data.providerToken,
             downloadUrl: download.url,
-            showAction: file.alternateLink,
             type: download.type,
             date: file.createdDate,
             id: id

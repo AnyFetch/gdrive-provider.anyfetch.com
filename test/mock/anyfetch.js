@@ -6,13 +6,13 @@ var app = require('../../app.js');
 var mock = nock(app.get('anyfetch.apiUrl'));
 
 mock.post('/documents', {
-  identifier: 'http://gdrive.provider.anyfetch.com/file0',
+  identifier: 'https://docs.google.com/file/d/file0',
   actions: {
-    show: "http://downloads/show/gdoc"
+    show: "https://docs.google.com/file/d/file0"
   },
   metadata: {
     title: 'Awesome document.pdf',
-    path: 'http://gdrive.provider.anyfetch.com/file0/Awesome document.pdf'
+    path: 'https://docs.google.com/file/d/file0/Awesome document.pdf'
   },
   creation_date: "somedate",
   document_type: 'document',
@@ -22,6 +22,6 @@ mock.post('/documents', {
     id: "document0"
 });
 
-mock.post('/documents/identifier/http%3A%2F%2Fgdrive.provider.anyfetch.com%2Ffile0/file').reply(204);
+mock.post('/documents/identifier/https%3A%2F%2Fdocs.google.com%2Ffile%2Fd%2Ffile0/file').reply(204);
 
-mock.delete('/documents/identifier/http%3A%2F%2Fgdrive.provider.anyfetch.com%2Ffile0').reply(204);
+mock.delete('/documents/identifier/https%3A%2F%2Fdocs.google.com%2Ffile%2Fd%2Ffile0').reply(204);
