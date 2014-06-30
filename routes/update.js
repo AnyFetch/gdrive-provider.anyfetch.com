@@ -5,6 +5,10 @@ var express = require('express');
 var wEnd = require('../helpers/waterfall-end.js');
 
 module.exports.post = function(req, res, next) {
+  if(!req.body.access_token) {
+    return next(new express.errors.MissingParameter("Missing access_token"));
+  }
+
   var store = req.app.get('keyValueStore');
   var queue = req.app.get('queue');
   var jobDesc = {
@@ -19,7 +23,7 @@ module.exports.post = function(req, res, next) {
       if(status) {
         return cb(new express.errors.TooManyRequests("Already Processing"));
       }
-      store.hget('cursor', req.body.access_token, cb);
+      store.hget('cursors', req.body.access_token, cb);
     },
     function getOtherToken(cur, cb) {
       jobDesc.cursor = cur;

@@ -11,7 +11,14 @@ describe("POST /update", function() {
   });
   beforeEach(clean);
 
-  it('should not update if the provider token is not set', function(done) {
+  it('should not update if the token is missing', function(done) {
+    request(app)
+      .post('/update')
+      .expect(409)
+      .end(done);
+  });
+
+  it('should not update if the token does not exist', function(done) {
     request(app)
       .post('/update')
       .send({ access_token: 'tok' })
