@@ -2,9 +2,10 @@
 
 var nock = require('nock');
 var app = require('../../app.js');
+var qs = require('querystring');
 
 var mock = nock(app.get('anyfetch.managerUrl'));
-mock.post('/oauth/access_token', JSON.stringify({
+mock.post('/oauth/access_token', qs.stringify({
   client_id: app.get('anyfetch.apiId'),
   client_secret: app.get('anyfetch.apiSecret'),
   redirect_uri: app.get('anyfetch.redirectUri'),

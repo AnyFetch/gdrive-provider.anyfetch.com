@@ -17,7 +17,7 @@ module.exports = function(app) {
 
         anyfetchAuthClient.deleteDocument(job.data.id, cb);
       },
-      function formatSuccess(res, cb) {
+      function formatSuccess(cb) {
         cb(null, true);
       }
     ], done);

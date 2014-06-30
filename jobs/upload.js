@@ -31,6 +31,7 @@ module.exports = function(app) {
         var fileConfig = function() {
           var streamer = new stream.PassThrough();
           req.pipe(streamer);
+          req.end();
           return {
             file: streamer,
             filename: job.data.title
