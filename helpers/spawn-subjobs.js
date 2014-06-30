@@ -10,11 +10,9 @@ module.exports = function (job, app) {
   var queue = app.get('queue');
 
   return function spawnUploadJobs(changes) {
-    var lastChangeId = null;
     changes.forEach(function(change) {
       var file = change.file;
       var id = PREFIX + file.id;
-      lastChangeId = change.id;
       if(file.deleted || (job.data.cursor && file.labels.trashed)) {
         subjob.create(queue, 'deletion', {
           title: "Delete " + id,

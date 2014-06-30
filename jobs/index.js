@@ -9,7 +9,6 @@ var processors = autoload(__dirname);
 
 module.exports = function(app) {
   var queue = app.get('queue');
-  var store = app.get('keyValueStore');
 
   delete processors.index;
   for(var processor in processors) {
@@ -32,24 +31,7 @@ module.exports = function(app) {
       },
       function removeJob(job, cb) {
         job.remove(rarity.carry([job], cb));
-      },
-      function setCursor(job, cb) {
-        if(job.type === 'update') {
-          async.waterfall([
-            function setCursor(cb) {
-              store.hset('cursor', job.data.anyfetchToken, result, cb);
-            },
-            function setLastUpdate(status, cb) {
-              store.hset('lastUpdate', job.data.anyfetchToken, Date.now().toString(), cb);
-            },
-            function unlockUpdate(status, cb) {
-              store.hdel('status', job.data.anyfetchToken, cb);
-            }
-          ], cb);
-        } else {
-          cb();
-        }
-      },
+      }
     ], function throwErrs(err) {
       if(err) {
         throw err;

@@ -1,11 +1,14 @@
 "use strict";
 
 var async = require('async');
+var rarity = require('rarity');
 var gApis = require('googleapis');
 var retrieveAllChanges = require('../helpers/retrieve-all-changes.js');
 var spawnSubjobs = require('../helpers/spawn-subjobs.js');
 
 module.exports = function(app) {
+  var store = app.get('keyValueStore');
+
   return function(job, done) {
     async.waterfall([
       function discoverApi(cb) {
@@ -29,6 +32,18 @@ module.exports = function(app) {
           refresh_token: job.data.providerToken
         };
         retrieveAllChanges(options, client, authClient, spawnSubjobs(job, app), cb);
+      },
+      function setCursor(lastChange, cb) {
+        store.hset('cursor', job.data.anyfetchToken, lastChange, rarity.carry([lastChange], cb));
+      },
+      function setLastUpdate(lastChange, status, cb) {
+        store.hset('lastUpdate', job.data.anyfetchToken, Date.now().toString(), rarity.carry([lastChange], cb));
+      },
+      function unlockUpdate(lastChange, status, cb) {
+        store.hdel('status', job.data.anyfetchToken, rarity.carry([lastChange], cb));
+      },
+      function formatResponse(lastChange, status, cb) {
+        cb(null, lastChange);
       }
     ], done);
   };

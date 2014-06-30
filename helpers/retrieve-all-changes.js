@@ -1,5 +1,7 @@
 "use strict";
 
+var debug = require('debug');
+
 module.exports = function retrievePageOfChanges(options, client, authClient, intermediaryCb, cb) {
   client.drive.changes
     .list(options)
@@ -14,7 +16,9 @@ module.exports = function retrievePageOfChanges(options, client, authClient, int
         options.pageToken = res.nextPageToken;
         retrievePageOfChanges(options, client, authClient, intermediaryCb, cb);
       } else {
-        cb(null, res.items[res.items.length - 1].id);
+        var cursor = res.items[res.items.length - 1].id;
+        debug('info:cursor')('setting cursor', cursor);
+        cb(null, cursor);
       }
     });
 };
