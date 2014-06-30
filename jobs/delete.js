@@ -7,7 +7,6 @@ module.exports = function(app) {
   return function(job, done) {
     async.waterfall([
       function deleteFile(cb) {
-
         var anyfetchAuthClient = new AnyFetch(
           app.get('anyfetch.apiId'),
           app.get('anyfetch.apiSecret'),
