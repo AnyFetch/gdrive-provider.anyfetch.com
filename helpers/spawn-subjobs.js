@@ -12,7 +12,7 @@ module.exports = function (job, app) {
   return function spawnUploadJobs(changes) {
     changes.forEach(function(change) {
       var id = PREFIX + change.fileId;
-      if(change.deleted || (job.data.cursor && file.labels.trashed)) {
+      if(change.deleted || (job.data.cursor && change.file.labels.trashed)) {
         subjob.create(queue, 'deletion', {
           title: "Delete " + id,
           anyfetchToken: job.data.anyfetchToken,
