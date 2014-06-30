@@ -24,7 +24,7 @@ module.exports = function(app) {
     }, 5000 );
   });
 
-  queue.on('job complete', function(id, result) {
+  queue.on('job complete', function(id) {
     async.waterfall([
       function getJob(cb) {
         kue.Job.get(id, cb);
@@ -38,4 +38,11 @@ module.exports = function(app) {
       }
     });
   });
+
+  // Restart cutted jobs
+  kue.Job.rangeByType ('job', 'active', 0, 10, 'asc', function (err, selectedJobs) {
+    selectedJobs.forEach(function (job) {
+        job.state('inactive').save();
+    });
+});
 };
