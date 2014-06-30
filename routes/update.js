@@ -23,7 +23,7 @@ module.exports.post = function(req, res, next) {
       if(status) {
         return cb(new express.errors.TooManyRequests("Already Processing"));
       }
-      store.hget('cursors', req.body.access_token, cb);
+      store.hget('cursor', req.body.access_token, cb);
     },
     function getOtherToken(cur, cb) {
       jobDesc.cursor = cur;

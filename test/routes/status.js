@@ -13,7 +13,7 @@ describe("GET /status", function() {
   beforeEach(function populateHashs(done) {
     async.series([
       function addCursor(cb) {
-        this.store.hset('cursors', 'tok', 'testCursor', cb);
+        this.store.hset('cursor', 'tok', 'testCursor', cb);
       }.bind(this),
       function addStatus(cb) {
         this.store.hset('status', 'tok', 'testStatus', cb);

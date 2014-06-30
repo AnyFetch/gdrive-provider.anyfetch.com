@@ -7,7 +7,7 @@ module.exports = function(done) {
   var store = app.get('keyValueStore');
   async.series([
     function delCursors(cb) {
-      store.del('cursors', cb);
+      store.del('cursor', cb);
     },
     function delStatus(cb) {
       store.del('status', cb);

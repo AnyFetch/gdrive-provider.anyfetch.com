@@ -14,7 +14,7 @@ describe("DELETE /reset", function() {
   beforeEach(function populateHashs(done) {
     async.series([
       function addCursor(cb) {
-        this.store.hset('cursors', 'tok', 'test', cb);
+        this.store.hset('cursor', 'tok', 'test', cb);
       }.bind(this),
       function addStatus(cb) {
         this.store.hset('status', 'tok', 'test', cb);
@@ -35,7 +35,7 @@ describe("DELETE /reset", function() {
           .end(cb);
       },
       function queryRedis(res, cb) {
-        this.store.hget('cursors', 'tok', cb);
+        this.store.hget('cursor', 'tok', cb);
       }.bind(this),
       function assertResponse(res, cb) {
         should(res).be.exactly(null);

@@ -10,7 +10,7 @@ module.exports.get = function(req, res, next) {
   };
   async.waterfall([
     function getCursor(cb) {
-      store.hget('cursors', req.query.access_token, cb);
+      store.hget('cursor', req.query.access_token, cb);
     },
     function getStatus(cur, cb) {
       statusResponse.cursor = cur;

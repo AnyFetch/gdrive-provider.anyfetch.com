@@ -7,7 +7,7 @@ module.exports.del = function(req, res, next) {
   var store = req.app.get('keyValueStore');
   async.waterfall([
     function delCursor(cb) {
-      store.hdel('cursors', req.query.access_token, cb);
+      store.hdel('cursor', req.query.access_token, cb);
     },
     function delStatus(status, cb) {
       store.hdel('status', req.query.access_token, cb);
