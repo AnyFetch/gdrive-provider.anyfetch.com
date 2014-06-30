@@ -40,7 +40,7 @@ module.exports = function(app) {
   });
 
   // Restart cutted jobs
-  kue.Job.rangeByType ('job', 'active', 0, 10, 'asc', function (err, selectedJobs) {
+  kue.Job.rangeByType ('job', 'active', 0, 100, 'asc', function (err, selectedJobs) {
     selectedJobs.forEach(function (job) {
         job.state('inactive').save();
     });
