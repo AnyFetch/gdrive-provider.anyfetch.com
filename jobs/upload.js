@@ -3,9 +3,9 @@
 var async = require('async');
 var gApis = require('googleapis');
 var AnyFetch = require('anyfetch');
+var rarity = require('rarity');
 var url = require('url');
-var request = require('supertest');
-var stream = require('stream');
+var https = require('https');
 
 module.exports = function(app) {
   return function(job, done) {
@@ -18,22 +18,19 @@ module.exports = function(app) {
         );
         authClient.refreshToken_(job.data.providerToken, cb);
       },
-      function downloadAndSendFile(tokenResponse, reqObj, cb) {
-        var urlData = url.parse(job.data.downloadUrl);
-
-        var r = request(urlData.protocol + '//' + urlData.host)
-          .get(urlData.path)
-          .set('Authorization', 'Bearer ' + tokenResponse.access_token);
-
-        cb(null, r);
+      function downloadFile(tokenResponse, reqObj, cb) {
+        var options = url.parse(job.data.downloadUrl);
+        options.headers = {
+          'Authorization': 'Bearer ' + tokenResponse.access_token
+        };
+        var req = https.request(options, rarity.pad([null], cb));
+        req.on('error', cb);
+        req.end();
       },
-      function sendFile(req, cb) {
+      function sendFile(fileResponse, cb) {
         var fileConfig = function() {
-          var streamer = new stream.PassThrough();
-          req.pipe(streamer);
-          req.end();
           return {
-            file: streamer,
+            file: fileResponse,
             filename: job.data.title
           };
         };
