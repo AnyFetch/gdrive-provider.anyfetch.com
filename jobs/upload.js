@@ -3,9 +3,9 @@
 var async = require('async');
 var gApis = require('googleapis');
 var AnyFetch = require('anyfetch');
-var rarity = require('rarity');
 var url = require('url');
-var https = require('https');
+var request = require('supertest');
+var stream = require('stream');
 
 module.exports = function(app) {
   return function(job, done) {
@@ -18,22 +18,25 @@ module.exports = function(app) {
         );
         authClient.refreshToken_(job.data.providerToken, cb);
       },
-      function downloadFile(tokenResponse, reqObj, cb) {
-        var options = url.parse(job.data.downloadUrl);
-        options.headers = {
-          'Authorization': 'Bearer ' + tokenResponse.access_token
-        };
-        var req = https.request(options, rarity.pad([null], cb));
-        req.on('error', cb);
-        req.end();
+      function downloadAndSendFile(tokenResponse, reqObj, cb) {
+        var urlData = url.parse(job.data.downloadUrl);
+
+        var r = request(urlData.protocol + '//' + urlData.host)
+          .get(urlData.path)
+          .set('Authorization', 'Bearer ' + tokenResponse.access_token);
+
+        cb(null, r);
       },
-      function sendFile(fileResponse, cb) {
+      function sendFile(req, cb) {
         var fileConfig = function() {
+          var streamer = new stream.PassThrough();
+          req.pipe(streamer);
           return {
-            file: fileResponse,
+            file: streamer,
             filename: job.data.title
           };
         };
+
         var document = {
           identifier: job.data.id,
           actions: {
@@ -54,8 +57,9 @@ module.exports = function(app) {
           app.get('anyfetch.apiUrl'),
           app.get('anyfetch.managerUrl')
         );
+
         anyfetchAuthClient.setAccessToken(job.data.anyfetchToken);
-        anyfetchAuthClient.sendDocumentAndFile(document, fileConfig(), cb);
+        anyfetchAuthClient.sendDocumentAndFile(document, fileConfig, cb);
       },
       function formatSuccess(res, cb) {
         cb(null, res.identifier);
