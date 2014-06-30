@@ -16,7 +16,7 @@ module.exports = function retrievePageOfChanges(options, client, authClient, int
         options.pageToken = res.nextPageToken;
         retrievePageOfChanges(options, client, authClient, intermediaryCb, cb);
       } else {
-        var cursor = res.items[res.items.length - 1].id;
+        var cursor = res.items.length > 0 ? res.items[res.items.length - 1].id : null;
         debug('info:cursor')('setting cursor', cursor);
         cb(null, cursor);
       }
