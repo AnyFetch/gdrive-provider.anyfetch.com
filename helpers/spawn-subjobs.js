@@ -11,15 +11,15 @@ module.exports = function (job, app) {
 
   return function spawnUploadJobs(changes) {
     changes.forEach(function(change) {
-      var file = change.file;
-      var id = PREFIX + file.id;
-      if(file.deleted || (job.data.cursor && file.labels.trashed)) {
+      var id = PREFIX + change.fileId;
+      if(change.deleted || (job.data.cursor && file.labels.trashed)) {
         subjob.create(queue, 'deletion', {
           title: "Delete " + id,
           anyfetchToken: job.data.anyfetchToken,
           id: id
         });
       } else {
+        var file = change.file;
         debug('info:gdrive')('analyzing file ', file.title);
         var download = selectBestDownload(file);
         if(download.url && !file.labels.trashed && file.fileSize < app.get('maxSize') * 1024 * 1024) {

@@ -54,14 +54,7 @@ mock.get('/drive/v2/changes?' + qs.stringify({
       id: "change1",
       fileId: "file0",
       deleted: true,
-      modificationDate: Date.now(),
-      file: {
-        kind: "drive#file",
-        id: "file0",
-        labels: [],
-        fileSize: 10,
-        downloadUrl: "http://googleusercontent.com/gdoc.pdf"
-      }
+      modificationDate: Date.now()
     }
   ]
 });
