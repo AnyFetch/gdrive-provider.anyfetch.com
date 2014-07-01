@@ -37,7 +37,7 @@
     "rarity": "2.1.x",
     "googleapis": "0.7.x",
     "supertest": "0.13.x",
-    "anyfetch": "^0.2.26",
+    "anyfetch": "0.2.26",
     "kue": "0.8.x",
     "redis": "0.10.x",
     "newrelic": "1.x.x",
