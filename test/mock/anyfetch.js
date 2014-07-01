@@ -12,7 +12,7 @@ mock.post('/documents', {
   },
   metadata: {
     title: 'Awesome document.pdf',
-    path: 'https://docs.google.com/file/d/file0/Awesome document.pdf'
+    path: '/Awesome document.pdf'
   },
   creation_date: "somedate",
   document_type: 'document',
