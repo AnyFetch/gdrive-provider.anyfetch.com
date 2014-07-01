@@ -37,12 +37,13 @@
     "rarity": "2.1.x",
     "googleapis": "0.7.x",
     "supertest": "0.13.x",
-    "anyfetch": "0.2.26",
+    "anyfetch": "^0.2.26",
     "kue": "0.8.x",
     "redis": "0.10.x",
     "newrelic": "1.x.x",
     "auto-load": "1.1.x",
-    "debug": "1.0.x"
+    "debug": "1.0.x",
+    "dotenv": "^0.4.0"
   },
   "devDependencies": {
     "mocha": "1.20.x",

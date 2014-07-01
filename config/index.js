@@ -2,6 +2,10 @@
 
 var url = require("url");
 
+// Load environment variables from .env file
+var dotenv = require('dotenv');
+dotenv.load();
+
 module.exports = function(app) {
 
   // Basic configuration
