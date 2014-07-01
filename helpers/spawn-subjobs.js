@@ -22,7 +22,7 @@ module.exports = function (job, app) {
         var file = change.file;
         debug('info:gdrive')('analyzing file ', file.title);
         var download = selectBestDownload(file);
-        if(download.url && !file.labels.trashed && file.fileSize < app.get('maxSize') * 1024 * 1024) {
+        if(download.url && !file.labels.trashed && (!file.fileSize || file.fileSize < app.get('maxSize') * 1024 * 1024)) {
           subjob.create(queue, 'upload', {
             title: file.title + download.extension,
             anyfetchToken: job.data.anyfetchToken,
