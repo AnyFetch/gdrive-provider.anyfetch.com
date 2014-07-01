@@ -42,7 +42,8 @@
     "redis": "0.10.x",
     "newrelic": "1.x.x",
     "auto-load": "1.1.x",
-    "debug": "1.0.x"
+    "debug": "1.0.x",
+    "dotenv": "^0.4.0"
   },
   "devDependencies": {
     "mocha": "1.20.x",
