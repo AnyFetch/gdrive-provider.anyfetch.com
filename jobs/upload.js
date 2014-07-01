@@ -43,7 +43,7 @@ module.exports = function(app) {
           creation_date: job.data.date,
           metadata: {
             title: job.data.title,
-            path: job.data.id + '/' + job.data.title
+            path: '/' + job.data.title
           },
           document_type: job.data.type,
           user_access: [job.data.anyfetchToken]
