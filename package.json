@@ -40,7 +40,6 @@
     "anyfetch": "0.2.26",
     "kue": "0.8.x",
     "redis": "0.10.x",
-    "newrelic": "1.x.x",
     "auto-load": "1.1.x",
     "debug": "1.0.x",
     "dotenv": "^0.4.0"
