@@ -35,7 +35,7 @@
     "drive"
   ],
   "dependencies": {
-    "async": "0.8.x",
+    "async": "0.9.x",
     "googleapis": "0.7.x",
     "anyfetch-provider": "^1.0.10",
     "dotenv": "^0.4.0",
