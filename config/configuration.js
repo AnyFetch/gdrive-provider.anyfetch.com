@@ -29,13 +29,13 @@ module.exports = {
   mongoUrl: process.env.MONGOLAB_URI,
   redisUrl: process.env.REDISCLOUD_URL,
 
-  googleId: process.env.GOOGLE_DRIVE_ID,
-  googleSecret: process.env.GOOGLE_DRIVE_SECRET,
+  googleId: process.env.GDRIVE_ID,
+  googleSecret: process.env.GDRIVE_SECRET,
   
-  appId: process.env.GOOGLE_DRIVE_ANYFETCH_ID,
-  appSecret: process.env.GOOGLE_DRIVE_ANYFETCH_SECRET,
+  appId: process.env.GDRIVE_ANYFETCH_ID,
+  appSecret: process.env.GDRIVE_ANYFETCH_SECRET,
 
   providerUrl: process.env.PROVIDER_URL,
 
-  testRefreshToken: process.env.GOOGLE_DRIVE_TEST_REFRESH_TOKEN
+  testRefreshToken: process.env.GDRIVE_TEST_REFRESH_TOKEN
 };
