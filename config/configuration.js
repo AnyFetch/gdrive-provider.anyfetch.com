@@ -27,14 +27,14 @@ module.exports = {
   maxSize: process.env.MAX_SIZE || 50,
   maxConcurrency: process.env.GDRIVE_MAX_CONCURRENCY || 1,
 
-  mongoUrl: process.env.MONGOLAB_URI,
-  redisUrl: process.env.REDISCLOUD_URL,
+  mongoUrl: process.env.MONGO_URL || process.env.MONGOLAB_URI,
+  redisUrl: process.env.REDIS_URL || process.env.REDISCLOUD_URL,
 
-  googleId: process.env.GDRIVE_ID,
-  googleSecret: process.env.GDRIVE_SECRET,
+  googleId: process.env.GDRIVE_API_ID,
+  googleSecret: process.env.GDRIVE_API_SECRET,
   
-  appId: process.env.GDRIVE_ANYFETCH_ID,
-  appSecret: process.env.GDRIVE_ANYFETCH_SECRET,
+  appId: process.env.ANYFETCH_API_ID,
+  appSecret: process.env.ANYFETCH_API_SECRET,
 
   providerUrl: process.env.PROVIDER_URL,
 
