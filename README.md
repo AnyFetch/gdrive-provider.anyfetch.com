@@ -30,12 +30,11 @@ Create a `keys.sh` file:
 # Create a client app at https://cloud.google.com/console
 export GDRIVE_API_ID="google client id"
 export GDRIVE_API_SECRET="google client secret"
-export GDRIVE_REDIRECT_URI="http://myprovider.example.com/init/callback"
+export PROVIDER_URL="http://myprovider.example.com"
 
 # Create a client app at http://manager.anyfetch.com/clients/new
 export ANYFETCH_API_ID="anyfetch client id"
 export ANYFETCH_API_SECRET="anyfetch client secret"
-export ANYFETCH_REDIRECT_URI="http://myprovider.example.com/init/connect"
 ```
 
 Source and start !
@@ -44,8 +43,6 @@ Source and start !
 source keys.sh
 npm start
 ```
-
-You can see the job queue here at [`/queue/active`](http://localhost:3000/queue/active).
 
 ## How does it work ?
 

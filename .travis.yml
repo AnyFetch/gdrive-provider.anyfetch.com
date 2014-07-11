@@ -1,8 +1,15 @@
 language: node_js
 services:
-  - redis-server
+- mongodb
+- redis-server
 node_js:
 - '0.10'
 script: npm test
-notifications:
-  flowdock: c7da1ce6a825bf9a9072d3bd96fb7433
+env:
+  global:
+  - PROVIDER_URL="http://localhost:8000"
+  - ANYFETCH_API_ID="fake-app-id"
+  - ANYFETCH_API_SECRET="fake-app-secret"
+  - secure: m92DWzYln2vdqgbP7aD5sHQkgMzL1Cc5166SH5pczki8QfFtQApprb/wX93sqCWryuVbhtif4qd2SCzgCQRBCm8W3Ec4WhmlmuKup8188S/6i2NxBK7OEP/9u5hGjQUxwg5aGZtFicsxwFkIYM7guMRhh+PEVpXP/t5M0ymplU8=
+  - secure: q922AW7x6Vg89AgGCWehMLur5L0hXzzTSmEQGvmF0gGFSx/pdJW5Nc1LtBqZpaVgxLai9KawrNrA17GY8AGp3luJ14QtSGDKolI9g8RuDaYONywkHZyQlQa6u5u+LWPgOy0k5wSJ6Lk8hpWhERdrGmVNgSnNaPNCHPfRrGwE0To=
+  - secure: MyavKgJoUsd7JSb0RQ0FdEmRAobnotts2WkyU+SeFFoVsGQGhv3+/DiiI/aqkrXTMTEglOBh+jSgKqQwHaW6h8H124RYJJwXQYtrCgf4Gkftbtry3U7d9RnipjCQ3llVCAcTfjajj1ik7yCvNuhpm8hcFXQaDAMBjbR17YAB5eQ=
