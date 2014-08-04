@@ -37,7 +37,7 @@
   "dependencies": {
     "async": "0.9.x",
     "googleapis": "^1.0.2",
-    "anyfetch-provider": "^1.0.30",
+    "anyfetch-provider": "^1.0.33",
     "dotenv": "^0.4.0",
     "rarity": "2.1.x"
   },
