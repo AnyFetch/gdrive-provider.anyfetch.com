@@ -26,12 +26,12 @@ describe("Workflow", function () {
           refresh_token: config.testRefreshToken
         }
       },
+      accountName: 'account_name',
       cursor: '66'
     }, done);
   });
 
-  // This test can't pass with the mockServer
-  it.skip("should upload data to AnyFetch", function(done) {
+  it("should upload data to AnyFetch", function(done) {
     var originalQueueWorker = serverConfig.workers.addition;
     serverConfig.workers.addition = function(job) {
       var spy = sinon.spy(job.anyfetchClient, "sendDocumentAndFile");
