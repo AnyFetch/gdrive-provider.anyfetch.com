@@ -40,7 +40,8 @@ describe("Workflow", function () {
       job.task.should.have.property('title');
       job.task.should.have.property('downloadUrl');
       job.task.should.have.property('type');
-      job.task.should.have.property('date');
+      job.task.should.have.property('createdDate');
+      job.task.should.have.property('modifiedDate');
 
       originalQueueWorker(job, function(err) {
         spy.callCount.should.eql(1);
