@@ -25,7 +25,7 @@ module.exports = {
   env: node_env,
   port: process.env.PORT || default_port,
   maxSize: process.env.MAX_SIZE || 50,
-  maxConcurrency: process.env.GDRIVE_MAX_CONCURRENCY || 1,
+  concurrency: process.env.GDRIVE_CONCURRENCY || 1,
 
   mongoUrl: process.env.MONGO_URL || process.env.MONGOLAB_URI,
   redisUrl: process.env.REDIS_URL || process.env.REDISCLOUD_URL,
