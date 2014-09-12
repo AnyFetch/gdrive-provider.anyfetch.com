@@ -36,7 +36,7 @@ describe("Workflow", function () {
     serverConfig.workers.addition = function(job) {
       var spy = sinon.spy(job.anyfetchClient, "sendDocumentAndFile");
 
-      job.task.should.have.property('id');
+      job.task.should.have.property('identifier');
       job.task.should.have.property('title');
       job.task.should.have.property('downloadUrl');
       job.task.should.have.property('type');
