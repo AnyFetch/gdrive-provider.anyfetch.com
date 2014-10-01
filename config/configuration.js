@@ -38,5 +38,12 @@ module.exports = {
 
   providerUrl: process.env.PROVIDER_URL,
 
-  testRefreshToken: process.env.GDRIVE_TEST_REFRESH_TOKEN
+  testRefreshToken: process.env.GDRIVE_TEST_REFRESH_TOKEN,
+
+  opbeat: {
+    organization_id: process.env.OPBEAT_ORGANIZATION_ID,
+    app_id: process.env.OPBEAT_APP_ID,
+    secret_token: process.env.OPBEAT_SECRET_TOKEN,
+    silent: true
+  }
 };
