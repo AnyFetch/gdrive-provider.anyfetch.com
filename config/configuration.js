@@ -32,7 +32,7 @@ module.exports = {
 
   googleId: process.env.GDRIVE_API_ID,
   googleSecret: process.env.GDRIVE_API_SECRET,
-  
+
   appId: process.env.ANYFETCH_API_ID,
   appSecret: process.env.ANYFETCH_API_SECRET,
 
@@ -40,10 +40,8 @@ module.exports = {
 
   testRefreshToken: process.env.GDRIVE_TEST_REFRESH_TOKEN,
 
-  kue: {
-    attempts: 2,
-    backoff: {delay: 20 * 1000, type: 'fixed'}
-  },
+  retry: 2,
+  retryDelay: 20 * 1000,
 
   opbeat: {
     organizationId: process.env.OPBEAT_ORGANIZATION_ID,

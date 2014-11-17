@@ -33,8 +33,12 @@ describe("Workflow", function () {
 
   it("should upload data to AnyFetch", function(done) {
     var originalQueueWorker = serverConfig.workers.addition;
-    serverConfig.workers.addition = function(job) {
-      var spy = sinon.spy(job.anyfetchClient, "sendDocumentAndFile");
+    var spySendDocumentAndFile;
+
+    serverConfig.workers.addition = function(job, cb) {
+      if(!job.anyfetchClient.sendDocumentAndFile.id) {
+        spySendDocumentAndFile = sinon.spy(job.anyfetchClient, "sendDocumentAndFile");
+      }
 
       job.task.should.have.property('identifier');
       job.task.should.have.property('title');
@@ -43,10 +47,7 @@ describe("Workflow", function () {
       job.task.should.have.property('createdDate');
       job.task.should.have.property('modifiedDate');
 
-      originalQueueWorker(job, function(err) {
-        spy.callCount.should.eql(1);
-        done(err);
-      });
+      originalQueueWorker(job, cb);
     };
     var server = AnyFetchProvider.createServer(serverConfig.connectFunctions, serverConfig.updateAccount, serverConfig.workers, serverConfig.config);
 
@@ -63,5 +64,10 @@ describe("Workflow", function () {
           throw err;
         }
       });
+
+    server.usersQueue.once('empty', function() {
+      spySendDocumentAndFile.callCount.should.not.eql(0);
+      done();
+    });
   });
 });
