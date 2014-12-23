@@ -40,6 +40,7 @@
     "anyfetch-provider": "^3.0.10",
     "dotenv": "^0.4.0",
     "rarity": "2.1.x",
+    "heroku-self-ping": "~1.1.1",
     "follow-redirects": "^0.0.3"
   },
   "devDependencies": {
